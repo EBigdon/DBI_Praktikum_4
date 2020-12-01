@@ -8,8 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost/bench_database";
-        String username = "dbi";
-        String password = "dbi_pass";
+        String username = "root";
+        String password = "";
         Connection my_connection = get_sql_con(url,username,password);
         create_database(my_connection);
     }
