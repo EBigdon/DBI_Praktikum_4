@@ -7,17 +7,7 @@ import java.sql.Statement;
 
 public class Create_Database {
     public static void create_database(Connection con){
-        String query = "create Database bench_database";
-        try {
-            Statement st = con.createStatement();
-            st.executeUpdate(query);
-            System.out.println("Table branches created");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        query = "create table branches\n" +
+        String query = "create table branches\n" +
                 "( branchid int not null,\n" +
                 " branchname char(20) not null,\n" +
                 " balance int not null,\n" +
