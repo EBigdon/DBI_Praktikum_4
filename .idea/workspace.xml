@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2f9eb941-3207-4759-a42e-d451b9567cb7" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1l3WpR1ncuiP2xHuNgk5RcPufuW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/mysql-connector-java_8.0.22-1ubuntu20.10_all/mysql-connector-java-8.0.22.jar" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.Main" />
+      <module name="DBI_Praktikum_4" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2f9eb941-3207-4759-a42e-d451b9567cb7" name="Default Changelist" comment="" />
+      <created>1606826443426</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606826443426</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="737" y="241" width="324" height="502" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1606827091548">
+      <screen x="88" y="27" width="1631" height="901" />
+    </state>
+    <state x="737" y="241" width="324" height="502" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/88.27.1631.901@88.27.1631.901" timestamp="1606827091548" />
+    <state x="529" y="230" width="739" height="525" key="FileChooserDialogImpl" timestamp="1606827083850">
+      <screen x="88" y="27" width="1631" height="901" />
+    </state>
+    <state x="529" y="230" width="739" height="525" key="FileChooserDialogImpl/88.27.1631.901@88.27.1631.901" timestamp="1606827083850" />
+    <state width="1585" height="225" key="GridCell.Tab.0.bottom" timestamp="1606827393639">
+      <screen x="88" y="27" width="1631" height="901" />
+    </state>
+    <state width="1585" height="225" key="GridCell.Tab.0.bottom/88.27.1631.901@88.27.1631.901" timestamp="1606827393639" />
+    <state width="1585" height="225" key="GridCell.Tab.0.center" timestamp="1606827393639">
+      <screen x="88" y="27" width="1631" height="901" />
+    </state>
+    <state width="1585" height="225" key="GridCell.Tab.0.center/88.27.1631.901@88.27.1631.901" timestamp="1606827393639" />
+    <state width="1585" height="225" key="GridCell.Tab.0.left" timestamp="1606827393638">
+      <screen x="88" y="27" width="1631" height="901" />
+    </state>
+    <state width="1585" height="225" key="GridCell.Tab.0.left/88.27.1631.901@88.27.1631.901" timestamp="1606827393638" />
+    <state width="1585" height="225" key="GridCell.Tab.0.right" timestamp="1606827393639">
+      <screen x="88" y="27" width="1631" height="901" />
+    </state>
+    <state width="1585" height="225" key="GridCell.Tab.0.right/88.27.1631.901@88.27.1631.901" timestamp="1606827393639" />
+    <state x="389" y="55" width="1024" height="857" key="SettingsEditor" timestamp="1606827094178">
+      <screen x="88" y="27" width="1631" height="901" />
+    </state>
+    <state x="389" y="55" width="1024" height="857" key="SettingsEditor/88.27.1631.901@88.27.1631.901" timestamp="1606827094178" />
+  </component>
+</project>
