@@ -24,18 +24,16 @@ public class TableManager {
      * Creates the tables needed for the test.
      */
     public static void createTables() {
-        createBranches(conn);
-        createAccounts(conn);
-        createTellers(conn);
-        createHistory(conn);
+        createBranches();
+        createAccounts();
+        createTellers();
+        createHistory();
     }
 
     /**
      * creates the Branches Table.
-     *
-     * @param con the connection to the database.
      */
-    private static void createBranches(final Connection con) {
+    private static void createBranches() {
         String query = """
                 create table branches
                 ( branchid int not null,
@@ -43,22 +41,13 @@ public class TableManager {
                  balance int not null,
                  address char(72) not null,
                  primary key (branchid) );""";
-        try {
-            Statement st = con.createStatement();
-            st.executeUpdate(query);
-            System.out.println("Table branches created");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        executeQuerry(query);
     }
 
     /**
      * creates the Accounts Table.
-     *
-     * @param con the connection to the database.
      */
-    private static void createAccounts(final Connection con) {
+    private static void createAccounts() {
         String query = """
                 create table accounts
                 ( accid int not null,
@@ -70,22 +59,13 @@ public class TableManager {
                 foreign key (branchid) references
                 bench_database.branches(branchid)
                 );""";
-        try {
-            Statement st = con.createStatement();
-            st.executeUpdate(query);
-            System.out.println("Table Accounts created");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        executeQuerry(query);
     }
 
     /**
      * creates the Tellers Table.
-     *
-     * @param con the connection to the database.
      */
-    private static void createTellers(final Connection con) {
+    private static void createTellers() {
         String query = """
                 create table tellers
                 ( tellerid int not null,
@@ -96,22 +76,13 @@ public class TableManager {
                  primary key (tellerid),
                  foreign key (branchid) references branches(branchid)
                 );\s""";
-        try {
-            Statement st = con.createStatement();
-            st.executeUpdate(query);
-            System.out.println("Table Tellers created");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        executeQuerry(query);
     }
 
     /**
      * creates the History Table.
-     *
-     * @param con the connection to the database.
      */
-    private static void createHistory(final Connection con) {
+    private static void createHistory() {
         String query = """
                 create table history
                 ( accid int not null,
@@ -123,16 +94,7 @@ public class TableManager {
                  foreign key (accid) references accounts(accid),
                  foreign key (tellerid) references tellers(tellerid),
                  foreign key (branchid) references branches(branchid) );\s""";
-
-        try {
-            Statement st = con.createStatement();
-            st.executeUpdate(query);
-            System.out.println("Table history created");
-
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
+        executeQuerry(query);
     }
 
     /**
@@ -157,25 +119,28 @@ public class TableManager {
                     "Cannot connect to the database!", e);
         }
     }
-    public static void drop_table(){
 
-        String query1 = "SET FOREIGN_KEY_CHECKS = 0; ";
+    /**
+     * drops the tables.
+     */
+    public static void dropTable() {
+        executeQuerry("DROP TABLE IF EXISTS history; ");
+        executeQuerry("DROP TABLE IF EXISTS accounts; ");
+        executeQuerry("DROP TABLE IF EXISTS tellers; ");
+        executeQuerry("DROP TABLE IF EXISTS branches; ");
+    }
 
-        String query2 = "DROP TABLE IF EXISTS history; ";
-        String query3 = "DROP TABLE IF EXISTS accounts; ";
-        String query4 = "DROP TABLE IF EXISTS tellers; ";
-        String query5 = "DROP TABLE IF EXISTS branches; ";
-
+    /**
+     * executes given querry.
+     *
+     * @param query our querry
+     */
+    public static void executeQuerry(final String query) {
         try {
             Statement st = conn.createStatement();
-            st.executeUpdate(query1);
-            st.executeUpdate(query2);
-            st.executeUpdate(query3);
-            st.executeUpdate(query4);
-            st.executeUpdate(query5);
-            System.out.println("Tables were dropped");
-
+            st.executeUpdate(query);
         } catch (SQLException e) {
+            System.out.println("ERROR while executing querry:" + query);
             e.printStackTrace();
         }
     }
