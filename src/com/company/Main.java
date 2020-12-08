@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Scanner;
 import static com.company.TableManager.createTables;
 
 import java.sql.Connection;
@@ -17,5 +18,8 @@ public class Main {
     public static void main(final String[] args) {
         TableManager myDatabase = new TableManager();
         myDatabase.createTables();
+        System.out.println("Wieviele Tupel sollen ausgegeben werde?");
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
     }
 }
