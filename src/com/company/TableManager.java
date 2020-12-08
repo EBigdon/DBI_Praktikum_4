@@ -1,22 +1,30 @@
 package com.company;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TableManager {
 
+    //Connection
+    private static Connection conn;
+
+    TableManager(){
+        String url = "jdbc:mysql://localhost/bench_database";
+        String username = "root";
+        String password = "";
+        conn = openSqlCon(url, username, password);
+    }
     /**
      * Creates the tables needed for the test.
-     *
-     * @param con the Connection to the Database
      */
-    public static void createTables(final Connection con) {
-        createBranches(con);
-        createAccounts(con);
-        createTellers(con);
-        createHistory(con);
+    public static void createTables() {
+        createBranches(conn);
+        createAccounts(conn);
+        createTellers(conn);
+        createHistory(conn);
     }
 
     /**
@@ -120,6 +128,26 @@ public class TableManager {
         } catch (
                 SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Returns Connection of Database
+     * @param url url of database
+     * @param username username to database
+     * @param password password to database
+     * @return Connection to Database
+     */
+    public static Connection openSqlCon(final String url, final String username, final String password) {
+        System.out.println("Connecting database...");
+        try {
+            Connection connection = DriverManager.getConnection(
+                    url, username, password);
+            System.out.println("Database connected!");
+            return connection;
+        } catch (SQLException e) {
+            throw new IllegalStateException(
+                    "Cannot connect to the database!", e);
         }
     }
 }
