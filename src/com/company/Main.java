@@ -18,6 +18,10 @@ public class Main {
         System.out.println("Wieviele Tupel sollen ausgegeben werde?");
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
+        for(int i = n;i != 0; i--)
+        {
+            Fill_Database.fill_database();
+        }
         //myDatabase.drop_tables;
     }
 
