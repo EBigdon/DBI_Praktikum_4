@@ -8,15 +8,18 @@ import java.sql.Statement;
 @SuppressWarnings("SpellCheckingInspection")
 public class TableManager {
 
-    //Connection
+    /**
+     * Connection.
+     */
     private static Connection conn;
 
-    TableManager(){
+    TableManager() {
         String url = "jdbc:mysql://localhost/bench_database";
         String username = "root";
         String password = "";
         conn = openSqlCon(url, username, password);
     }
+
     /**
      * Creates the tables needed for the test.
      */
@@ -105,6 +108,7 @@ public class TableManager {
 
     /**
      * creates the History Table.
+     *
      * @param con the connection to the database.
      */
     private static void createHistory(final Connection con) {
@@ -132,13 +136,16 @@ public class TableManager {
     }
 
     /**
-     * Returns Connection of Database
-     * @param url url of database
+     * Returns Connection of Database.
+     *
+     * @param url      url of database
      * @param username username to database
      * @param password password to database
      * @return Connection to Database
      */
-    public static Connection openSqlCon(final String url, final String username, final String password) {
+    public static Connection openSqlCon(final String url,
+                                        final String username,
+                                        final String password) {
         System.out.println("Connecting database...");
         try {
             Connection connection = DriverManager.getConnection(
