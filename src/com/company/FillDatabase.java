@@ -48,7 +48,7 @@ public class FillDatabase {
             //Branch
             for (int j = 0; j < n; j++) {
                 String name = Integer.toString(i) + Integer.toString(j)
-                        + fillString.substring(0, 20 - int_string_length(i, j));
+                        + fillString.substring(0, 20 - intStringLength(i, j));
                 int branchId = counter;
                 int balance = 0;
                 String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 70);
