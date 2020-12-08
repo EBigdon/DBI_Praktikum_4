@@ -24,10 +24,12 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/mysql-connector-java_8.0.22-1ubuntu20.10_all/mysql-connector-java-8.0.22.jar" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../mysql-connector-java-8.0.22.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="org.infernus.idea.checkstyle.CheckStyleConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -58,36 +60,15 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="737" y="241" width="324" height="502" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1606827091548">
-      <screen x="88" y="27" width="1631" height="901" />
-    </state>
-    <state x="737" y="241" width="324" height="502" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/88.27.1631.901@88.27.1631.901" timestamp="1606827091548" />
-    <state x="529" y="230" width="739" height="525" key="FileChooserDialogImpl" timestamp="1606827083850">
-      <screen x="88" y="27" width="1631" height="901" />
-    </state>
-    <state x="529" y="230" width="739" height="525" key="FileChooserDialogImpl/88.27.1631.901@88.27.1631.901" timestamp="1606827083850" />
-    <state width="1585" height="225" key="GridCell.Tab.0.bottom" timestamp="1606827847582">
-      <screen x="88" y="27" width="1631" height="901" />
-    </state>
-    <state width="1585" height="225" key="GridCell.Tab.0.bottom/88.27.1631.901@88.27.1631.901" timestamp="1606827847582" />
-    <state width="1585" height="225" key="GridCell.Tab.0.center" timestamp="1606827847581">
-      <screen x="88" y="27" width="1631" height="901" />
-    </state>
-    <state width="1585" height="225" key="GridCell.Tab.0.center/88.27.1631.901@88.27.1631.901" timestamp="1606827847581" />
-    <state width="1585" height="225" key="GridCell.Tab.0.left" timestamp="1606827847581">
-      <screen x="88" y="27" width="1631" height="901" />
-    </state>
-    <state width="1585" height="225" key="GridCell.Tab.0.left/88.27.1631.901@88.27.1631.901" timestamp="1606827847581" />
-    <state width="1585" height="225" key="GridCell.Tab.0.right" timestamp="1606827847581">
-      <screen x="88" y="27" width="1631" height="901" />
-    </state>
-    <state width="1585" height="225" key="GridCell.Tab.0.right/88.27.1631.901@88.27.1631.901" timestamp="1606827847581" />
-    <state x="389" y="55" width="1024" height="857" key="SettingsEditor" timestamp="1606827094178">
-      <screen x="88" y="27" width="1631" height="901" />
-    </state>
-    <state x="389" y="55" width="1024" height="857" key="SettingsEditor/88.27.1631.901@88.27.1631.901" timestamp="1606827094178" />
   </component>
 </project>
