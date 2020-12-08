@@ -21,40 +21,7 @@ public class Main {
         System.out.println("Wieviele Tupel sollen ausgegeben werde?");
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
+        //myDatabase.drop_tables;
     }
 
-
-    public static Connection get_sql_con(String url, String username, String password){
-        System.out.println("Connecting database...");
-        try  {
-            Connection connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Database connected!");
-            return connection;
-        } catch (SQLException e) {
-            throw new IllegalStateException("Cannot connect to the database!", e);
-        }
-    }
-
-    public static void drop_table(Connection con){
-
-        String query1 = "SET FOREIGN_KEY_CHECKS = 0; ";
-
-        String query2 = "DROP TABLE IF EXISTS history; ";
-        String query3 = "DROP TABLE IF EXISTS accounts; ";
-        String query4 = "DROP TABLE IF EXISTS tellers; ";
-        String query5 = "DROP TABLE IF EXISTS branches; ";
-
-        try {
-            Statement st = con.createStatement();
-            st.executeUpdate(query1);
-            st.executeUpdate(query2);
-            st.executeUpdate(query3);
-            st.executeUpdate(query4);
-            st.executeUpdate(query5);
-            System.out.println("Tables were dropped");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

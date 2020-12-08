@@ -150,5 +150,27 @@ public class TableManager {
                     "Cannot connect to the database!", e);
         }
     }
+    public static void drop_table(){
+
+        String query1 = "SET FOREIGN_KEY_CHECKS = 0; ";
+
+        String query2 = "DROP TABLE IF EXISTS history; ";
+        String query3 = "DROP TABLE IF EXISTS accounts; ";
+        String query4 = "DROP TABLE IF EXISTS tellers; ";
+        String query5 = "DROP TABLE IF EXISTS branches; ";
+
+        try {
+            Statement st = conn.createStatement();
+            st.executeUpdate(query1);
+            st.executeUpdate(query2);
+            st.executeUpdate(query3);
+            st.executeUpdate(query4);
+            st.executeUpdate(query5);
+            System.out.println("Tables were dropped");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
