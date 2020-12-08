@@ -1,41 +1,16 @@
 package com.company;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
-public class Fill_Database
-{
-    public static int fill_database()
-    {
-        System.out.println("Was soll eingelesen werden?(branch/account/tellers)");
-        Scanner scan = new Scanner(System.in);
-        String auswahleingabe = scan.nextLine();
+public class Fill_Database {
 
-        if (auswahleingabe.equals("account"))
-        {
+    public static TableManager myDatabase = new TableManager();
 
-        }
-        else if (auswahleingabe.equals("branch"))
-        {
-            int nextbid = 1;
-            System.out.println("Geben Sie den branchnamen ein:");
-            String branchname = scan.nextLine();
-            System.out.println("Geben Sie die balance ein:");
-            int balance = scan.nextInt();
-            System.out.println("Geben Sie die Adresse ein:");
-            String adress = scan.nextLine();
-            String querybranch = "INSERT INTO branch ("+ nextbid + "," + branchname + "," + balance + "," + adress + ")" ;
-            System.out.println(querybranch);
-            nextbid = nextbid + 1;
-        }
-        else if(auswahleingabe.equals("tellers"))
-        {
+    public static void Fill_Database() {
 
-        }
-        else
-            {
-                return 1;
-            }
-        return 0;
+
     }
 
     /**
@@ -46,28 +21,28 @@ public class Fill_Database
     public static void doTupel(final int n) {
         String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL" +
                 "RSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJK";
-
         int counter = 0;
 
         for (int i = 0; i < n; i++) {
             //Branch
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < 1; j++) {
                 String name = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 20 - int_string_length(i, j));
                 int branchId = counter;
                 int balance = 0;
-                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0,70);
-                String querybranch = "INSERT INTO `branches` (`branchid`, `branchname`, `balance`, `address`) VALUES "+branchId + ", '" + name + "'," + balance + ", '" + address + "')" ;
-
+                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 72 - int_string_length(i, j));
+                String querybranch = "INSERT INTO `branches` (`branchid`, `branchname`, `balance`, `address`) VALUES (" + branchId + ", '" + name + "'," + balance + ", '" + address + "')";
+                myDatabase.executeQuerry(querybranch);
                 counter++;
             }
+            /*
             counter = 0;
             //Accounts
             for (int j = 0;j<n;j++) {
-                String name = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 18);
+                String name = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 20 - int_string_length(i, j));
                 int accId = counter;
                 int balance = 0;
                 int branchId = counter;
-                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0,66);
+                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0,68 - int_string_length(i, j));
                 String querybranch = "INSERT INTO branch ("+ accId + "," + name + "," + balance + "," + address + ")" ;
 
                 counter++;
@@ -76,10 +51,10 @@ public class Fill_Database
             //tellers
             for (int j = 0;j<n;j++) {
                 int tellerid = counter;
-                String tname = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 18);
+                String tname = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 20 - int_string_length(i, j));
                 int balance = 0;
                 int branchid = counter;
-                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0,66);
+                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0,68 - int_string_length(i, j));
                 counter++;
             }
             counter = 0;
@@ -88,14 +63,13 @@ public class Fill_Database
 
             }
 
-
+             */
         }
-        }
+    }
 
-        public static int int_string_length( int i, int j){
-            return (Integer.toString(i).length() + Integer.toString(j).length());
-        }
-
+    public static int int_string_length(int i, int j) {
+        return (Integer.toString(i).length() + Integer.toString(j).length());
+    }
 }
 
 

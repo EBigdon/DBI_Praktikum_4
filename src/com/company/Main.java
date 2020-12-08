@@ -16,15 +16,11 @@ public class Main {
         TableManager myDatabase = new TableManager();
         myDatabase.dropTable();
         myDatabase.createTables();
-        System.out.println("Wieviele Tupel sollen ausgegeben werde?");
+        System.out.println("Welcher Skalierungsfaktor soll verwendet werden?");
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        
-        for(int i = n;i != 0; i--)
-        {
-            Fill_Database.fill_database();
-        }
-        //myDatabase.drop_tables;
+        Fill_Database myFill = new Fill_Database();
+        myFill.doTupel(n);
     }
 
 }
