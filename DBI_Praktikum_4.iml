@@ -15,11 +15,10 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/mysql-connector-java_8.0.22-1ubuntu20.10_all" />
+          <root url="jar://$MODULE_DIR$/mysql-connector-java-8.0.22.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/mysql-connector-java_8.0.22-1ubuntu20.10_all" recursive="false" />
       </library>
     </orderEntry>
   </component>
