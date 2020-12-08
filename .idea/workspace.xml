@@ -71,4 +71,7 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DBI_Praktikum_4$Main.ic" NAME="Main Coverage Results" MODIFIED="1607432998559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
 </project>
