@@ -10,8 +10,7 @@ public class Fill_Database {
 
         if (auswahleingabe.equals("account")) {
 
-        }
-        else if (auswahleingabe.equals("branch")) {
+        } else if (auswahleingabe.equals("branch")) {
             int nextid = 1;
             System.out.println("Geben Sie den branchnamen ein:");
             String branchname = scan.nextLine();
@@ -19,21 +18,18 @@ public class Fill_Database {
             int balance = scan.nextInt();
             System.out.println("Geben Sie die Adresse ein:");
             String adress = scan.nextLine();
-            String querybranch = "INSERT INTO branch ("+ nextid + "," + branchname + "," + balance + "," + adress + ")" ;
+            String querybranch = "INSERT INTO branch (" + nextid + "," + branchname + "," + balance + "," + adress + ")";
 
+        } else if (auswahleingabe.equals("tellers")) {
+        } else {
+            return 1;
         }
-        else if(auswahleingabe.equals("tellers"))
-        {
-        }
-        else
-            {
-                return 1;
-            }
         return 0;
     }
 
     /**
      * makes Tupels.
+     *
      * @param n n Tupel
      */
     public static void doTupel(final int n) {
@@ -42,25 +38,34 @@ public class Fill_Database {
 
         int counter = 0;
 
-        for (int i = 0;i<n;i++) {
+        for (int i = 0; i < n; i++) {
             //Branch
-            for (int j = 0;j<n;j++) {
-                String name = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 18);
+            for (int j = 0; j < n; j++) {
+                String name = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 20 - int_string_length(i, j));
                 int branchId = counter;
                 int balance = 0;
-                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0,70);
+                String address = Integer.toString(i) + Integer.toString(j) + fillString.substring(0, 72 - int_string_length(i, j));
                 counter++;
             }
             //Accounts
-            for (int j = 0;j<n;j++) {
+            for (int j = 0; j < n; j++) {
 
             }
-            for (int j = 0;j<n;j++) {
+            for (int j = 0; j < n; j++) {
 
             }
-            for (int j = 0;j<n;j++) {
+            for (int j = 0; j < n; j++) {
 
             }
+
+
         }
-    }
+        }
+
+        public static int int_string_length( int i, int j){
+            return (Integer.toString(i).length() + Integer.toString(j).length());
+        }
+
 }
+
+

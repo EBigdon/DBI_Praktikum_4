@@ -14,11 +14,12 @@ public class Main {
      */
     public static void main(final String[] args) {
         TableManager myDatabase = new TableManager();
-        myDatabase.drop_table();
+        myDatabase.dropTable();
         myDatabase.createTables();
         System.out.println("Wieviele Tupel sollen ausgegeben werde?");
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
+        
         for(int i = n;i != 0; i--)
         {
             Fill_Database.fill_database();
