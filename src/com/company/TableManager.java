@@ -157,10 +157,12 @@ public class TableManager {
                     "Cannot connect to the database!", e);
         }
     }
-    public static void drop_table(){
 
+    /**
+     * drops the tables
+     */
+    public static void drop_table() {
         String query1 = "SET FOREIGN_KEY_CHECKS = 0; ";
-
         String query2 = "DROP TABLE IF EXISTS history; ";
         String query3 = "DROP TABLE IF EXISTS accounts; ";
         String query4 = "DROP TABLE IF EXISTS tellers; ";
@@ -176,6 +178,15 @@ public class TableManager {
             System.out.println("Tables were dropped");
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void executeArray(String query) {
+        try {
+            Statement st = conn.createStatement();
+            st.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("ERROR while executing querry:" + query);
             e.printStackTrace();
         }
     }
