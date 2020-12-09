@@ -133,57 +133,40 @@ public class TableManager {
 
     public static void fillDatabase(int n){
 
-        String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL" +
-                "RSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJK";
+        String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL";
         try {
             PreparedStatement branchstmt = conn.prepareStatement("INSERT INTO `branches` (`branchid`, `branchname`, `balance`, `address`) VALUES (?, ?, ?, ?)");
             PreparedStatement accountstmt = conn.prepareStatement("INSERT INTO `accounts` (`accid`, `name`, `balance`, `branchid`, `address`) VALUES (?, ?, ?, ?, ?)");
             PreparedStatement tellerstmt = conn.prepareStatement("INSERT INTO `tellers` (`tellerid`, `tellername`, `balance`, `branchid`,`address`) VALUES (?, ?, ?, ?, ?)");
 
-            int counter = 0;
             int acccounter = 0;
             int tellercounter = 0;
 
             for (int i = 0; i < 1 * n; i++) {
-                String name = Integer.toString(i) + fillString.substring(0, 20 - Integer.toString(i).length());
-                int branchId = counter;
-                int balance = 0;
-                String address = Integer.toString(i) + fillString.substring(0, 72 - Integer.toString(i).length());
-
-                branchstmt.setInt(1, branchId);
-                branchstmt.setString(2, name);
-                branchstmt.setInt(3, balance);
-                branchstmt.setString(4, address);
+                branchstmt.setInt(1, i);
+                branchstmt.setString(2, fillString.substring(0,20));
+                branchstmt.setInt(3, 0);
+                branchstmt.setString(4, fillString.substring(0,72));
                 branchstmt.execute();
-                counter++;
+
 
                 //Accounts
                 for (int j = 0;j < 100000;j++) {
-                    String accname = Integer.toString(j) + fillString.substring(0, 20 - Integer.toString(j).length());
-                    int accId = acccounter;
-                    int accbalance = 0;
-                    String accaddress = Integer.toString(j) + fillString.substring(0,68 - Integer.toString(j).length());
-
-                    accountstmt.setInt(1, accId);
-                    accountstmt.setString(2, accname);
-                    accountstmt.setInt(3, accbalance);
-                    accountstmt.setInt(4, branchId);
-                    accountstmt.setString(5, accaddress);
+                    accountstmt.setInt(1, acccounter);
+                    accountstmt.setString(2, fillString.substring(0,20));
+                    accountstmt.setInt(3, 0);
+                    accountstmt.setInt(4, i);
+                    accountstmt.setString(5, fillString.substring(0,68));
                     accountstmt.execute();
                     acccounter++;
                 }
                 //tellers
                 for (int j = 0;j< 10;j++) {
-                    int tellerid = tellercounter;
-                    String tellername = Integer.toString(j) + fillString.substring(0, 20 - Integer.toString(j).length());
-                    int tellerbalance = 0;
-                    String telleraddress = Integer.toString(j) + fillString.substring(0,68 - Integer.toString(j).length());
-
-                    tellerstmt.setInt(1, tellerid);
-                    tellerstmt.setString(2, tellername);
-                    tellerstmt.setInt(3, tellerbalance);
-                    tellerstmt.setInt(4, branchId);
-                    tellerstmt.setString(5, telleraddress);
+                    tellerstmt.setInt(1, tellercounter);
+                    tellerstmt.setString(2, fillString.substring(0,20));
+                    tellerstmt.setInt(3, 0);
+                    tellerstmt.setInt(4, i);
+                    tellerstmt.setString(5, fillString.substring(0,68));
                     tellerstmt.execute();
                     tellercounter++;
                 }
