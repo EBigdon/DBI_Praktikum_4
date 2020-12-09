@@ -15,14 +15,14 @@ public class Main {
     public static void main(final String[] args) {
 
         TableManager myDatabase = new TableManager();
-        myDatabase.dropTable();
-        myDatabase.createTables();
         System.out.println("Welcher Skalierungsfaktor soll verwendet werden?");
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        Fill_Database myFill = new Fill_Database();
+
         long start = System.currentTimeMillis();
-        myFill.doTupel(n);
+
+        myDatabase.fillDatabase(n);
+
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("Laufzeit in ms: " + timeElapsed);
