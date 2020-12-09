@@ -13,6 +13,7 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) {
+
         TableManager myDatabase = new TableManager();
         myDatabase.dropTable();
         myDatabase.createTables();
@@ -20,7 +21,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         Fill_Database myFill = new Fill_Database();
+        long start = System.currentTimeMillis();
         myFill.doTupel(n);
+        long finish = System.currentTimeMillis();
+        long timeElapsed = finish - start;
+        System.out.println("Laufzeit in ms: " + timeElapsed);
     }
 
 }
