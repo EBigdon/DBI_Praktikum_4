@@ -34,32 +34,11 @@ public class Main {
 
         for(int i = 0; i < n; i++) {
             TableManager testConn = new TableManager();
-            int finalI = i;
-            Runnable runnable = () -> {
-                testConn.fastFillAccounts(finalI);
-                try {
-                    Thread.sleep(100);
-                } catch(InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                try {
-                    testConn.closeConnection();
-                } catch (SQLException exception) {
-                    exception.printStackTrace();
-                }
-            };
-            Thread myThread = new Thread(runnable);
-            try {
-                myThread.start();
-            } catch(Exception e) {
-                System.out.print("");
-            }
+                testConn.fastFillAccounts(i);
         }
         //myDatabase.waitTillDatabaseFinished(n);
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("Laufzeit in ms: " + timeElapsed);
-        TimeUnit.SECONDS.sleep(10);
     }
-
 }
