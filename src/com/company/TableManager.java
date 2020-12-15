@@ -3,6 +3,7 @@ package com.company;
 import com.mysql.cj.jdbc.PreparedStatementWrapper;
 
 import java.sql.*;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TableManager {
@@ -17,7 +18,6 @@ public class TableManager {
         String username = "root";
         String password = "";
         conn = openSqlCon(url, username, password);
-        createTables();
     }
 
     /**
@@ -29,6 +29,26 @@ public class TableManager {
         createAccounts();
         createTellers();
         createHistory();
+    }
+
+    public static void fastFillAccounts(final int n) {
+        executeQuerry("SET @@session.unique_checks = 0;");
+        executeQuerry("SET @@session.foreign_key_checks = 0;");
+        String query = """
+                INSERT INTO accounts (`accid`, `name`, `balance`, `branchid`, `address`)
+                               SELECT n, SUBSTRING(CONCAT(n,'ABCDEFGHIJKLMNOPQRST'),1,20),n,n,SUBSTRING(CONCAT(n,'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNO'),1,68)
+                                 FROM
+                               (
+                               select 1*a.N + b.N * 10 + c.N * 100 + d.N * 1000 + e.N * 10000 +  """ + (n*100000+1) + """
+                                N
+                               from (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) a
+                                     , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) b
+                                     , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) c
+                                     , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) d
+                                   , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) e
+                               order by n
+                               ) t""";
+        executeQuerry(query);
     }
 
     /**
@@ -109,11 +129,9 @@ public class TableManager {
     public static Connection openSqlCon(final String url,
                                         final String username,
                                         final String password) {
-        System.out.println("Connecting database...");
         try {
             Connection connection = DriverManager.getConnection(
                     url, username, password);
-            System.out.println("Database connected!");
             return connection;
         } catch (SQLException e) {
             throw new IllegalStateException(
@@ -131,8 +149,7 @@ public class TableManager {
         executeQuerry("DROP TABLE IF EXISTS branches; ");
     }
 
-    public static void fillDatabase(int n){
-
+    public static void fillDatabase(final int n) {
         String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL";
         try {
             PreparedStatement branchstmt = conn.prepareStatement("INSERT INTO `branches` (`branchid`, `branchname`, `balance`, `address`) VALUES (?, ?, ?, ?)");
@@ -192,6 +209,27 @@ public class TableManager {
             System.out.println("ERROR while executing querry:" + query);
             e.printStackTrace();
         }
+    }
+    public static void waitTillDatabaseFinished(final int n) throws SQLException, InterruptedException {
+
+        PreparedStatement checkCount = conn.prepareStatement("SELECT Count(*) FROM `accounts` ");
+        while(true) {
+            ResultSet myRes = checkCount.executeQuery();
+            while(!myRes.next()) {
+                if(myRes.getInt(1) == 100000 * n) {
+                    return;
+                }
+            }
+            //TimeUnit.SECONDS.sleep(1);
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException ex)  {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+    public static void closeConnection() throws SQLException {
+        conn.close();
     }
 }
 
