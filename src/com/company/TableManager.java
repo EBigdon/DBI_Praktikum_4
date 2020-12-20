@@ -156,9 +156,6 @@ public class TableManager {
             PreparedStatement accountstmt = conn.prepareStatement("INSERT INTO `accounts` (`accid`, `name`, `balance`, `branchid`, `address`) VALUES (?, ?, ?, ?, ?)");
             PreparedStatement tellerstmt = conn.prepareStatement("INSERT INTO `tellers` (`tellerid`, `tellername`, `balance`, `branchid`,`address`) VALUES (?, ?, ?, ?, ?)");
 
-            int acccounter = 0;
-            int tellercounter = 0;
-
             for (int i = 0; i < 1 * n; i++) {
                 branchstmt.setInt(1, i);
                 branchstmt.setString(2, fillString.substring(0,20));
@@ -169,23 +166,22 @@ public class TableManager {
 
                 //Accounts
                 for (int j = 0;j < 100000;j++) {
-                    accountstmt.setInt(1, acccounter);
+
+                    accountstmt.setInt(1, i *  100000 + j);
                     accountstmt.setString(2, fillString.substring(0,20));
                     accountstmt.setInt(3, 0);
                     accountstmt.setInt(4, i);
                     accountstmt.setString(5, fillString.substring(0,68));
                     accountstmt.execute();
-                    acccounter++;
                 }
                 //tellers
                 for (int j = 0;j< 10;j++) {
-                    tellerstmt.setInt(1, tellercounter);
+                    tellerstmt.setInt(1, i * 10 + j);
                     tellerstmt.setString(2, fillString.substring(0,20));
                     tellerstmt.setInt(3, 0);
                     tellerstmt.setInt(4, i);
                     tellerstmt.setString(5, fillString.substring(0,68));
                     tellerstmt.execute();
-                    tellercounter++;
                 }
             }
 
