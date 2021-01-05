@@ -60,7 +60,7 @@ public class TableManager {
      * @param password password to database
      * @return Connection to Database
      */
-    private static Connection openSqlCon(
+    static Connection openSqlCon(
             final String url, final String username, final String password) {
         try {
             return DriverManager.getConnection(url, username, password);

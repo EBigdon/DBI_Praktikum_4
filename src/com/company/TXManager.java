@@ -1,14 +1,29 @@
 package com.company;
 
+import java.sql.*;
+
+import static com.company.TableManager.openSqlCon;
+
 public class TXManager {
+    /**
+     * Connection.
+     */
+    private static Connection conn;
+    TXManager() {
+        String url = "jdbc:mysql://localhost/bench_database";
+        String username = "root";
+        String password = "";
+        conn = openSqlCon(url, username, password);
+    }
     /**
      * Gets balance from Database with corresponding account id.
      *
      * @param accid id of account
      * @return balance of account
      */
-    public static float balanceTx(final int accid) {
-        return (float) 1;
+    public static float balanceTx(final int accid) throws SQLException {
+        String query = "SELECT balance FROM accounts WHERE accid = " + accid;
+        executeQuery(query);
     }
 
     /**
@@ -30,6 +45,17 @@ public class TXManager {
      * @return Number of previously logged deposits with exactly this amount
      */
     public static int analyseTx(final float depositAmount) {
+        return 1;
+    }
 
+    private static ResultSet executeQuery(final String query) {
+        try {
+            Statement st = conn.createStatement();
+            ResultSet resultSet = st.executeQuery(query);
+            return resultSet;
+        } catch (SQLException e) {
+            System.out.println("ERROR while executing querry:" + query);
+            e.printStackTrace();
+        }
     }
 }
