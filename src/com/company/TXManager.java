@@ -23,7 +23,12 @@ public class TXManager {
      */
     public static float balanceTx(final int accid) throws SQLException {
         String query = "SELECT balance FROM accounts WHERE accid = " + accid;
-        executeQuery(query);
+        ResultSet rs = executeQuery(query);
+        while(rs.next()) {
+            return rs.getInt("balance");
+        }
+        System.out.println("\u001B[31mNo Account with accid " + accid + " found.\u001B[0m");
+        return 0;
     }
 
     /**
@@ -57,5 +62,6 @@ public class TXManager {
             System.out.println("ERROR while executing querry:" + query);
             e.printStackTrace();
         }
+        return null;
     }
 }

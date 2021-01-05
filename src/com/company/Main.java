@@ -1,5 +1,6 @@
 package com.company;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -25,6 +26,13 @@ public class Main {
         System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
         */
         TXManager txManager = new TXManager();
-        float balance = txManager.balanceTx(2);
+        for(int i=0;i<10000;i++)
+            getBalance(i,txManager);
+    }
+
+    public static float getBalance(final int accid, final TXManager txManager) throws SQLException {
+        float balance = txManager.balanceTx(accid);
+        System.out.println("Balance: " + balance);
+        return balance;
     }
 }
