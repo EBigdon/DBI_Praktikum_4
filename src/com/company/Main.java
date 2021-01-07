@@ -12,9 +12,12 @@ public class Main {
             *
             * @param args String of supplied command-line-arguments
      */
+    static TXManager txManager = new TXManager();
+
     public static void main(final String[] args) throws Exception {
-        /*
-        TableManager tableManager = new TableManager();
+
+
+        /*TableManager tableManager = new TableManager();
         tableManager.createTables();
         System.out.println("Welcher Skalierungsfaktor soll verwendet werden?");
         Scanner scanner = new Scanner(System.in);
@@ -23,16 +26,20 @@ public class Main {
         tableManager.fillDatabase(n);
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
-        System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
-        */
-        TXManager txManager = new TXManager();
-        for(int i=0;i<10000;i++)
-            getBalance(i,txManager);
+        System.out.println("Laufzeit in Millisekunden: " + timeElapsed);*/
+
+
+        deposit_TX(1, 0, 0, 1000);
+
     }
 
-    public static float getBalance(final int accid, final TXManager txManager) throws SQLException {
-        float balance = txManager.balanceTx(accid);
-        System.out.println("Balance: " + balance);
-        return balance;
+
+    public static int deposit_TX(int accid, int tellerid, int branchid, int delta){
+        try{
+            return txManager.depositTx(accid, tellerid, branchid, delta);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return 0;
     }
 }

@@ -79,11 +79,11 @@ public class TableManager {
 
         String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL";
         PreparedStatement branchstmt = conn.prepareStatement(
-                "INSERT INTO `branches` (`branchid`, `branchname`,"
-                        + " `balance`, `address`) VALUES (?, ?, ?, ?)");
+                "INSERT INTO branches (branchid, branchname,"
+                        + " balance, address) VALUES (?, ?, ?, ?)");
         PreparedStatement tellerstmt = conn.prepareStatement(
-                "INSERT INTO `tellers` (`tellerid`, `tellername`,"
-                        + " `balance`, `branchid`,`address`) VALUES (?, ?, ?, ?, ?)");
+                "INSERT INTO tellers (tellerid, tellername,"
+                        + " balance, branchid,address) VALUES (?, ?, ?, ?, ?)");
         int tellercounter = 0;
         for (int i = 0; i < n; i++) {
             branchstmt.setInt(1, i);
