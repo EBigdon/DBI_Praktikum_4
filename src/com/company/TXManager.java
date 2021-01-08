@@ -114,8 +114,14 @@ public class TXManager {
      * @param depositAmount DELTA
      * @return Number of previously logged deposits with exactly this amount
      */
-    public static int analyseTx(final float depositAmount) {
-        return 1;
+    public static int analyseTx(final float depositAmount) throws Exception{
+        String query = "SELECT accid FROM history WHERE delta = '" + depositAmount+ "'";
+        ResultSet rs = executeQuery(query);
+        int counter = 0;
+        while(rs.next()){
+            counter++;
+        }
+        return counter;
     }
 
     private static ResultSet executeQuery(final String query) throws Exception{

@@ -100,5 +100,9 @@ public class Main {
         return txManager.balanceTx(accid);
     }
 
+    public static int analyseTX(int delta)throws Exception{
+        return txManager.analyseTx(delta);
+    }
+
     
 }
