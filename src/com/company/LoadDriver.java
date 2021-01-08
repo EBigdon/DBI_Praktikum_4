@@ -7,25 +7,25 @@ public class LoadDriver {
     private static final TXManager txManager = new TXManager();
     private static int n;
     public static long transactionsDone = 0;
-    public static int timeToRunInSec = 60;
+    public static int timeToRunInSec = 10*60;
 
-    LoadDriver(final int n) {
+    public LoadDriver(final int n) {
         LoadDriver.n = n;
         long startTime = System.currentTimeMillis();
-        int timeToRun = timeToRunInSec*100;
-        long end = System.currentTimeMillis() + timeToRun * 4;
+        int timeToRun = timeToRunInSec * 100;
+        long end = System.currentTimeMillis() + timeToRun * 4L;
 
-        while(System.currentTimeMillis() < end){
+        while (System.currentTimeMillis() < end) {
             swingPhase();
         }
         printTransactions(4);
-        end = System.currentTimeMillis() + timeToRun * 5;
-        while(System.currentTimeMillis() < end){
+        end = System.currentTimeMillis() + timeToRun * 5L;
+        while (System.currentTimeMillis() < end) {
             messPhase();
         }
         printTransactions(5);
         end = System.currentTimeMillis() + timeToRun;
-        while(System.currentTimeMillis() < end){
+        while(System.currentTimeMillis() < end) {
             swingPhase();
         }
         printTransactions(1);
@@ -34,7 +34,7 @@ public class LoadDriver {
     public static void printTransactions(int modifier) {
         System.out.println("End Transaktionen: "
                 + transactionsDone);
-        System.out.println("Transaktionen pro Sekunden: " + (float)transactionsDone/((float)timeToRunInSec*(float)modifier/10));
+        System.out.println("Transaktionen pro Sekunden: " + (float) transactionsDone / ((float) timeToRunInSec * (float) modifier / 10));
         System.out.println();
         transactionsDone = 0;
     }
