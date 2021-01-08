@@ -60,39 +60,36 @@ public class TXManager {
      * @return updated balance
      */
     public static int depositTx(final int accid, final int tellerid, final int branchid, final int depositAmount) throws SQLException{
-
-        String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL";
-
-        PreparedStatement historystmt = conn.prepareStatement(
+        PreparedStatement historyStmt = conn.prepareStatement(
                 "INSERT INTO history (accid, tellerid,"
                         + " delta, branchid, accbalance, cmmnt) VALUES (?, ?, ?, ?, ?, ?)");
 
-        int acc_balance = balanceTx(accid);
-        int branch_balance = branchBalanceTx(branchid);
-        int teller_balance = tellerBalanceTx(tellerid);
+        int accBalance = balanceTx(accid);
+        int branchBalance = branchBalanceTx(branchid);
+        int tellerBalance = tellerBalanceTx(tellerid);
 
-        int new_acc_balance = acc_balance + depositAmount;
-        int new_branch_balance = branch_balance + depositAmount;
-        int new_teller_balance = teller_balance + depositAmount;
+        int newAccBalance = accBalance + depositAmount;
+        int newBranchBalance = branchBalance + depositAmount;
+        int newTellerBalance = tellerBalance + depositAmount;
 
-        String query = null;
+        String query;
 
-        query = "UPDATE accounts SET balance = '" + new_acc_balance + "' WHERE accid = '" + accid + "'";
+        query = "UPDATE accounts SET balance = '" + newAccBalance + "' WHERE accid = '" + accid + "'";
         updateQuery(query);
-        query = "UPDATE branches SET balance = '" + new_branch_balance + "' WHERE branchid = '" + branchid + "'";
+        query = "UPDATE branches SET balance = '" + newBranchBalance + "' WHERE branchid = '" + branchid + "'";
         updateQuery(query);
-        query = "UPDATE tellers SET balance = '" + new_teller_balance + "' WHERE tellerid = '" + tellerid + "'";
+        query = "UPDATE tellers SET balance = '" + newTellerBalance + "' WHERE tellerid = '" + tellerid + "'";
         updateQuery(query);
+        String cmmnt="DEP:" + depositAmount + ";BAL:" + newAccBalance + ";ACC:" + accid + ";TEL:" + tellerid + ";BRA:" + branchid +".";
+        historyStmt.setInt(1, accid);
+        historyStmt.setInt(2, tellerid);
+        historyStmt.setInt(3, depositAmount);
+        historyStmt.setInt(4, branchid);
+        historyStmt.setInt(5, newAccBalance);
+        historyStmt.setString(6, cmmnt.substring(0, 30));
+        historyStmt.execute();
 
-        historystmt.setInt(1, accid);
-        historystmt.setInt(2, tellerid);
-        historystmt.setInt(3, depositAmount);
-        historystmt.setInt(4, branchid);
-        historystmt.setInt(5, new_acc_balance);
-        historystmt.setString(6, fillString.substring(0, 29));
-        historystmt.execute();
-
-        return new_acc_balance;
+        return newAccBalance;
     }
 
     /**

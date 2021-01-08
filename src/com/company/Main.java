@@ -8,49 +8,78 @@ import java.util.Scanner;
         */
 public class Main {
     /**
-            * Our main function that gets called when program is executed.
-            *
-            * @param args String of supplied command-line-arguments
+     * Instance of TXManager.
      */
-    static TXManager txManager = new TXManager();
+    private static final TXManager txManager = new TXManager();
 
+    /**
+     * Our main function that gets called when program is executed.
+     *
+     * @param args String of supplied command-line-arguments
+     */
     public static void main(final String[] args) throws Exception {
-
-
-        TableManager tableManager = new TableManager();
-        tableManager.createTables();
-        System.out.println("Welcher Skalierungsfaktor soll verwendet werden?");
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        long start = System.currentTimeMillis();
-        tableManager.fillDatabase(n);
-        long finish = System.currentTimeMillis();
-        long timeElapsed = finish - start;
-        System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
-
-        long start_1 = System.currentTimeMillis();
-        for(int i = 0; i < 10000; i++){
-            int random_accid = (int)(Math.random() * ((n + 1) * 100000 - 100001 + 1) + 100001);
-            int random_tellerid = (int)(Math.random() * (n * 10 - 1 + 1) + 1);
-            int random_branchid = (random_tellerid/10) + 1;
-            if(random_branchid == n + 1){
-                random_branchid = n;
-            }
-            int random_delta = (int)(Math.random() * (1000 - 1 + 1) + 1);
-            deposit_TX(random_accid, random_tellerid, random_branchid, random_delta);
+        int n = fillDatabasePls();
+        final int transactions = 10000;
+        long startTransactions = System.currentTimeMillis();
+        for (int i = 0; i < transactions; i++) {
+            int randomAccid = (int)
+                    (Math.random() * ((n + 1) * 100000 - 100001 + 1) + 1);
+            int randomTellerid = (int) (Math.random() * (n * 10) + 1);
+            int randomBranchid = (randomTellerid % n) + 1;
+            int randomDelta = (int) (Math.random() * 1000 + 1);
+            depositTX(randomAccid, randomTellerid,
+                    randomBranchid, randomDelta);
         }
-        long finish_1 = System.currentTimeMillis();
-        long timeElapsed_1 = finish_1 - start_1;
-        System.out.println("Laufzeit in Millisekunden: " + timeElapsed_1);
+        long finishTransactions = System.currentTimeMillis();
+        long timeElapsedTransactions = finishTransactions - startTransactions;
+        System.out.println("Laufzeit in Millisekunden: "
+                + timeElapsedTransactions);
+        System.out.println(transactions
+                / (timeElapsedTransactions / 1000) + " TX/s");
     }
 
+    /**
+     * Asks if we should reset the database or not.
+     *
+     * @return the n value or, if 0 is inserted, returns the expected value of 100.
+     * @throws SQLException throws SQL-Exception.
+     */
+    public static int fillDatabasePls() throws SQLException {
+        System.out.println("Welcher Skalierungsfaktor soll verwendet werden? (0 um aktuellen Zustand beizubehalten):");
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        TableManager tableManager = new TableManager();
+        if (n != 0) {
+            tableManager.createTables();
+            long start = System.currentTimeMillis();
+            tableManager.fillDatabase(n);
+            long finish = System.currentTimeMillis();
+            long timeElapsed = finish - start;
+            System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
+            return n;
+        } else {
+            tableManager.clearHistory();
+            return 100;
+        }
+    }
 
-    public static int deposit_TX(int accid, int tellerid, int branchid, int delta){
-        try{
+    /**
+     * Deposits a amount into our database.
+     *
+     * @param accid    Account Id
+     * @param tellerid Teller Id
+     * @param branchid Branch Id
+     * @param delta    Inserted Money
+     * @return returns an int value
+     */
+    public static int depositTX(final int accid, final int tellerid,
+                                final int branchid, final int delta) {
+        try {
             return txManager.depositTx(accid, tellerid, branchid, delta);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
-            System.out.println(accid + " " + tellerid + " " + branchid + " " + delta);
+            System.out.println(accid + " " + tellerid + " "
+                    + branchid + " " + delta);
         }
         return 0;
     }
