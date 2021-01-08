@@ -2,6 +2,7 @@ package com.company;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+import GUI.*;
 
 /**
 * Our Main class for the benchmark database.
@@ -19,15 +20,17 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-        try {
+
+        try{
             int n = fillDatabasePls();
             final int transactions = 10000;
             long startTransactions = System.currentTimeMillis();
             for (int i = 0; i < transactions; i++) {
-                int randomAccid = (int) (Math.random() * ((n * 100000) + 1));
+                int randomAccid = (int)
+                        (Math.random() * ((n + 1) * 100000 - 100001 + 1) + 1);
                 int randomTellerid = (int) (Math.random() * (n * 10) + 1);
                 int randomBranchid = (randomTellerid % n) + 1;
-                int randomDelta = (int) (Math.random() * transactions / 10 + 1);
+                int randomDelta = (int) (Math.random() * 1000 + 1);
                 depositTX(randomAccid, randomTellerid,
                         randomBranchid, randomDelta);
             }
