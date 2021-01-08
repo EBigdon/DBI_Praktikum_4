@@ -3,9 +3,10 @@ package com.company;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-/**
+        /**
         * Our Main class for the benchmark database.
         */
+@SuppressWarnings({"SpellCheckingInspection","MagicNumber"})
 public class Main {
     /**
      * Instance of TXManager.
@@ -53,11 +54,13 @@ public class Main {
     /**
      * Asks if we should reset the database or not.
      *
-     * @return the n value or, if 0 is inserted, returns the expected value of 100.
+     * @return the n value or, if 0 is inserted,
+     * returns the expected value of 100.
      * @throws SQLException throws SQL-Exception.
      */
     public static int fillDatabasePls() throws SQLException {
-        System.out.println("Welcher Skalierungsfaktor soll verwendet werden? (0 um aktuellen Zustand beizubehalten):");
+        System.out.println("Welcher Skalierungsfaktor soll verwendet werden?"
+                + "(0 um aktuellen Zustand beizubehalten):");
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         TableManager tableManager = new TableManager();
@@ -89,7 +92,7 @@ public class Main {
         try {
             return txManager.depositTx(accid, tellerid, branchid, delta);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Exception while deposit Money: " + e);
             System.out.println(accid + " " + tellerid + " "
                     + branchid + " " + delta);
         }

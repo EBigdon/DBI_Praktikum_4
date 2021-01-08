@@ -1,6 +1,10 @@
 package com.company;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 import static com.company.TableManager.openSqlCon;
 
@@ -25,28 +29,22 @@ public class TXManager {
     public static int balanceTx(final int accid) throws Exception {
         String query = "SELECT balance FROM accounts WHERE accid = " + accid;
         ResultSet rs = executeQuery(query);
-        while(rs.next()){
-            return rs.getInt("balance");
-        }
-        return 0;
+        rs.next();
+        return rs.getInt("balance");
     }
 
     private static int branchBalanceTx(int branchid) throws Exception{
         String query = "SELECT balance FROM branches WHERE branchid = " + branchid;
         ResultSet rs = executeQuery(query);
-        while(rs.next()){
-            return rs.getInt("balance");
-        }
-        return 0;
+        rs.next();
+        return rs.getInt("balance");
     }
 
     private static int tellerBalanceTx(int tellerid) throws Exception{
         String query = "SELECT balance FROM tellers WHERE tellerid = " + tellerid;
         ResultSet rs = executeQuery(query);
-        while(rs.next()){
-            return rs.getInt("balance");
-        }
-        return 0;
+        rs.next();
+        return rs.getInt("balance");
     }
 
     /**
