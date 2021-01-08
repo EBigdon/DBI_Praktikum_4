@@ -85,8 +85,8 @@ public class TableManager {
         PreparedStatement tellerstmt = conn.prepareStatement(
                 "INSERT INTO tellers (tellerid, tellername,"
                         + " balance, branchid,address) VALUES (?, ?, ?, ?, ?)");
-        int tellercounter = 0;
-        for (int i = 0; i < n; i++) {
+        int tellercounter = 1;
+        for (int i = 1; i <= n; i++) {
             branchstmt.setInt(1, i);
             branchstmt.setString(2, fillString.substring(0, 20));
             branchstmt.setInt(3, 0);
@@ -94,7 +94,7 @@ public class TableManager {
             branchstmt.execute();
             fillAccounts(i, n);
             //tellers
-            for (int j = 0; j < 10; j++) {
+            for (int j = 1; j <= 10; j++) {
                 tellerstmt.setInt(1, tellercounter);
                 tellerstmt.setString(2, fillString.substring(0, 20));
                 tellerstmt.setInt(3, 0);

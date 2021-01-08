@@ -17,7 +17,7 @@ public class Main {
     public static void main(final String[] args) throws Exception {
 
 
-        /*TableManager tableManager = new TableManager();
+        TableManager tableManager = new TableManager();
         tableManager.createTables();
         System.out.println("Welcher Skalierungsfaktor soll verwendet werden?");
         Scanner scanner = new Scanner(System.in);
@@ -26,11 +26,22 @@ public class Main {
         tableManager.fillDatabase(n);
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
-        System.out.println("Laufzeit in Millisekunden: " + timeElapsed);*/
+        System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
 
-
-        deposit_TX(1, 0, 0, 1000);
-
+        long start_1 = System.currentTimeMillis();
+        for(int i = 0; i < 10000; i++){
+            int random_accid = (int)(Math.random() * ((n + 1) * 100000 - 100001 + 1) + 100001);
+            int random_tellerid = (int)(Math.random() * (n * 10 - 1 + 1) + 1);
+            int random_branchid = (random_tellerid/10) + 1;
+            if(random_branchid == n + 1){
+                random_branchid = n;
+            }
+            int random_delta = (int)(Math.random() * (1000 - 1 + 1) + 1);
+            deposit_TX(random_accid, random_tellerid, random_branchid, random_delta);
+        }
+        long finish_1 = System.currentTimeMillis();
+        long timeElapsed_1 = finish_1 - start_1;
+        System.out.println("Laufzeit in Millisekunden: " + timeElapsed_1);
     }
 
 
@@ -39,6 +50,7 @@ public class Main {
             return txManager.depositTx(accid, tellerid, branchid, delta);
         }catch (Exception e){
             System.out.println(e);
+            System.out.println(accid + " " + tellerid + " " + branchid + " " + delta);
         }
         return 0;
     }
