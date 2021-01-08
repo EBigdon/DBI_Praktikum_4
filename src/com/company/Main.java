@@ -3,7 +3,9 @@ package com.company;
 import java.sql.SQLException;
 import java.util.Scanner;
 import GUI.*;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 /**
 * Our Main class for the benchmark database.
 */
@@ -21,6 +23,11 @@ public class Main {
      */
     public static void main(final String[] args) throws Exception {
 
+        ButtonFrame frame = new ButtonFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        
         try{
             int n = fillDatabasePls();
             final int transactions = 10000;
