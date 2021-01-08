@@ -22,12 +22,12 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-
+/*
         ButtonFrame frame = new ButtonFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        
+
         try{
             int n = fillDatabasePls();
             final int transactions = 10000;
@@ -63,6 +63,10 @@ public class Main {
             }
         }
         System.out.println(analyseTX(100));
+
+ */
+        fillDatabasePls();
+        LoadDriver ld = new LoadDriver(100);
     }
 
     /**

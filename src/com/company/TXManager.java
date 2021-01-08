@@ -124,8 +124,10 @@ public class TXManager {
         String query = "SELECT Count(accid) as Anz FROM history WHERE delta = "
                 + depositAmount + " GROUP BY delta";
         ResultSet rs = executeQuery(query);
-        rs.next();
-        return rs.getInt("Anz");
+        if(rs.next()) {
+            return rs.getInt("Anz");
+        }
+        return 0;
     }
 
     private static ResultSet executeQuery(final String query) throws Exception {
