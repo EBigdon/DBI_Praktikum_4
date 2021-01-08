@@ -18,24 +18,36 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-        int n = fillDatabasePls();
-        final int transactions = 10000;
-        long startTransactions = System.currentTimeMillis();
-        for (int i = 0; i < transactions; i++) {
-            int randomAccid = (int)
-                    (Math.random() * ((n + 1) * 100000 - 100001 + 1) + 1);
-            int randomTellerid = (int) (Math.random() * (n * 10) + 1);
-            int randomBranchid = (randomTellerid % n) + 1;
-            int randomDelta = (int) (Math.random() * 1000 + 1);
-            depositTX(randomAccid, randomTellerid,
-                    randomBranchid, randomDelta);
+
+        try{
+            int n = fillDatabasePls();
+            final int transactions = 10000;
+            long startTransactions = System.currentTimeMillis();
+            for (int i = 0; i < transactions; i++) {
+                int randomAccid = (int)
+                        (Math.random() * ((n + 1) * 100000 - 100001 + 1) + 1);
+                int randomTellerid = (int) (Math.random() * (n * 10) + 1);
+                int randomBranchid = (randomTellerid % n) + 1;
+                int randomDelta = (int) (Math.random() * 1000 + 1);
+                depositTX(randomAccid, randomTellerid,
+                        randomBranchid, randomDelta);
+            }
+            long finishTransactions = System.currentTimeMillis();
+            long timeElapsedTransactions = finishTransactions - startTransactions;
+            System.out.println("Laufzeit in Millisekunden: "
+                    + timeElapsedTransactions);
+            System.out.println(transactions
+                    / (timeElapsedTransactions / 1000) + " TX/s");
+
+        }catch(Exception e) {
+            if (e.toString() == "read_exception") {
+                //not yet implemented
+            } else if (e.toString() == "write_exception") {
+                //not yet implemented
+            } else {
+                System.out.println(e);
+            }
         }
-        long finishTransactions = System.currentTimeMillis();
-        long timeElapsedTransactions = finishTransactions - startTransactions;
-        System.out.println("Laufzeit in Millisekunden: "
-                + timeElapsedTransactions);
-        System.out.println(transactions
-                / (timeElapsedTransactions / 1000) + " TX/s");
     }
 
     /**
@@ -83,4 +95,10 @@ public class Main {
         }
         return 0;
     }
+
+    public static int balanceTX(int accid)throws Exception{
+        return txManager.balanceTx(accid);
+    }
+
+    
 }

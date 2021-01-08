@@ -22,28 +22,27 @@ public class TXManager {
      * @param accid id of account
      * @return balance of account
      */
-    public static int balanceTx(final int accid) throws SQLException {
-
-        ResultSet rs = getBalance(accid, "acc");
-
-       while(rs.next()){
-            return rs.getInt("balance");
-       }
-        return 0;
-    }
-
-    private static int branchBalanceTx(int branchid) throws SQLException{
-
-        ResultSet rs = getBalance(branchid, "branch");
+    public static int balanceTx(final int accid) throws Exception {
+        String query = "SELECT balance FROM accounts WHERE accid = " + accid;
+        ResultSet rs = executeQuery(query);
         while(rs.next()){
             return rs.getInt("balance");
         }
         return 0;
     }
 
-    private static int tellerBalanceTx(int tellerid) throws SQLException{
+    private static int branchBalanceTx(int branchid) throws Exception{
+        String query = "SELECT balance FROM branches WHERE branchid = " + branchid;
+        ResultSet rs = executeQuery(query);
+        while(rs.next()){
+            return rs.getInt("balance");
+        }
+        return 0;
+    }
 
-        ResultSet rs = getBalance(tellerid, "teller");
+    private static int tellerBalanceTx(int tellerid) throws Exception{
+        String query = "SELECT balance FROM tellers WHERE tellerid = " + tellerid;
+        ResultSet rs = executeQuery(query);
         while(rs.next()){
             return rs.getInt("balance");
         }
@@ -59,36 +58,54 @@ public class TXManager {
      * @param depositAmount amount which updates the balances.
      * @return updated balance
      */
-    public static int depositTx(final int accid, final int tellerid, final int branchid, final int depositAmount) throws SQLException{
-        PreparedStatement historyStmt = conn.prepareStatement(
-                "INSERT INTO history (accid, tellerid,"
-                        + " delta, branchid, accbalance, cmmnt) VALUES (?, ?, ?, ?, ?, ?)");
+    public static int depositTx(final int accid, final int tellerid, final int branchid, final int depositAmount) throws Exception{
+        int accBalance;
+        int branchBalance;
+        int tellerBalance;
 
-        int accBalance = balanceTx(accid);
-        int branchBalance = branchBalanceTx(branchid);
-        int tellerBalance = tellerBalanceTx(tellerid);
+        //read
+        try{
+            accBalance = balanceTx(accid);
+            branchBalance = branchBalanceTx(branchid);
+            tellerBalance = tellerBalanceTx(tellerid);
 
+        }catch(Exception e){
+            throw new Exception("read_exception");
+        }
+
+        //process
         int newAccBalance = accBalance + depositAmount;
         int newBranchBalance = branchBalance + depositAmount;
         int newTellerBalance = tellerBalance + depositAmount;
 
-        String query;
+        //write
+        try{
+            String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL";
 
-        query = "UPDATE accounts SET balance = '" + newAccBalance + "' WHERE accid = '" + accid + "'";
-        updateQuery(query);
-        query = "UPDATE branches SET balance = '" + newBranchBalance + "' WHERE branchid = '" + branchid + "'";
-        updateQuery(query);
-        query = "UPDATE tellers SET balance = '" + newTellerBalance + "' WHERE tellerid = '" + tellerid + "'";
-        updateQuery(query);
-        String cmmnt="DEP:" + depositAmount + ";BAL:" + newAccBalance + ";ACC:" + accid + ";TEL:" + tellerid + ";BRA:" + branchid +".";
-        historyStmt.setInt(1, accid);
-        historyStmt.setInt(2, tellerid);
-        historyStmt.setInt(3, depositAmount);
-        historyStmt.setInt(4, branchid);
-        historyStmt.setInt(5, newAccBalance);
-        historyStmt.setString(6, cmmnt.substring(0, 30));
-        historyStmt.execute();
+            PreparedStatement historyStmt = conn.prepareStatement(
+                    "INSERT INTO history (accid, tellerid,"
+                            + " delta, branchid, accbalance, cmmnt) VALUES (?, ?, ?, ?, ?, ?)");
 
+            String query;
+            query = "UPDATE accounts SET balance = '" + newAccBalance + "' WHERE accid = '" + accid + "'";
+            updateQuery(query);
+            query = "UPDATE branches SET balance = '" + newBranchBalance + "' WHERE branchid = '" + branchid + "'";
+            updateQuery(query);
+            query = "UPDATE tellers SET balance = '" + newTellerBalance + "' WHERE tellerid = '" + tellerid + "'";
+            updateQuery(query);
+            String cmmnt="DEP:" + depositAmount + ";BAL:" + newAccBalance + ";ACC:" + accid + ";TEL:" + tellerid + ";BRA:" + branchid +".";
+
+            historyStmt.setInt(1, accid);
+            historyStmt.setInt(2, tellerid);
+            historyStmt.setInt(3, depositAmount);
+            historyStmt.setInt(4, branchid);
+            historyStmt.setInt(5, newAccBalance);
+            historyStmt.setString(6, cmmnt.substring(0, 30));
+            historyStmt.execute();
+
+        }catch(Exception e){
+            throw new Exception("write_exception");
+        }
         return newAccBalance;
     }
 
@@ -101,45 +118,23 @@ public class TXManager {
         return 1;
     }
 
-    private static ResultSet getBalance(int id, String type){
-
-        String query = null;
-
-        if(type == "acc"){
-            query = "SELECT balance FROM accounts WHERE accid = " + id;
-        }else if(type == "branch"){
-            query = "SELECT balance FROM branches WHERE branchid = " + id;
-        }else if(type == "teller"){
-            query = "SELECT balance FROM tellers WHERE tellerid = " + id;
-        }else{
-            query = null;
-        }
-
-        ResultSet rs = executeQuery(query);
-        return rs;
-
-    }
-
-    private static ResultSet executeQuery(final String query) {
+    private static ResultSet executeQuery(final String query) throws Exception{
         try {
             Statement st = conn.createStatement();
             ResultSet resultSet = st.executeQuery(query);
             return resultSet;
         } catch (SQLException e) {
-            System.out.println("ERROR while executing querry:" + query);
-            e.printStackTrace();
+            throw new Exception("write_exception");
         }
-        return null;
     }
 
-    private static void updateQuery(final String query){
+    private static void updateQuery(final String query)throws Exception{
         try {
             Statement st = conn.createStatement();
             st.executeUpdate(query);
 
         } catch (SQLException e) {
-            System.out.println("ERROR while executing querry:" + query);
-            e.printStackTrace();
+            throw new Exception("read_exception");
         }
     }
 }
