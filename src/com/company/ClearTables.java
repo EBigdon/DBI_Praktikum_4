@@ -6,7 +6,10 @@ import static com.company.TableManager.executeQuerry;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class ClearTables {
-    public static void clearHistory(){
+    /**
+     * Clears the History table.
+     */
+    public static void clearHistory() {
         executeQuerry("DROP TABLE IF EXISTS history; ");
         createHistory();
     }

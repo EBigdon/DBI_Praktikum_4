@@ -3,10 +3,10 @@ package com.company;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-        /**
-        * Our Main class for the benchmark database.
-        */
-@SuppressWarnings({"SpellCheckingInspection","MagicNumber"})
+/**
+* Our Main class for the benchmark database.
+*/
+@SuppressWarnings({"SpellCheckingInspection", "checkstyle:magicnumber"})
 public class Main {
     /**
      * Instance of TXManager.
@@ -19,36 +19,40 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-
-        try{
+        try {
             int n = fillDatabasePls();
             final int transactions = 10000;
             long startTransactions = System.currentTimeMillis();
             for (int i = 0; i < transactions; i++) {
-                int randomAccid = (int)
-                        (Math.random() * ((n + 1) * 100000 - 100001 + 1) + 1);
+                int randomAccid = (int) (Math.random() * ((n * 100000) + 1));
                 int randomTellerid = (int) (Math.random() * (n * 10) + 1);
                 int randomBranchid = (randomTellerid % n) + 1;
-                int randomDelta = (int) (Math.random() * 1000 + 1);
+                int randomDelta = (int) (Math.random() * transactions / 10 + 1);
                 depositTX(randomAccid, randomTellerid,
                         randomBranchid, randomDelta);
             }
             long finishTransactions = System.currentTimeMillis();
-            long timeElapsedTransactions = finishTransactions - startTransactions;
+            long timeElapsedTransactions = finishTransactions
+                    - startTransactions;
             System.out.println("Laufzeit in Millisekunden: "
                     + timeElapsedTransactions);
             System.out.println(transactions
                     / (timeElapsedTransactions / 1000) + " TX/s");
 
-        }catch(Exception e) {
-            if (e.toString() == "read_exception") {
-                //not yet implemented
-            } else if (e.toString() == "write_exception") {
-                //not yet implemented
+        } catch (Exception e) {
+            if (e.toString().equals("read_exception")) {
+                System.out.println(
+                        "Read exception while trying to simulate Transactions: "
+                                + e);
+            } else if (e.toString().equals("write_exception")) {
+                System.out.println(
+                        "Write exception while trying to simulate TXs: "
+                                + e);
             } else {
-                System.out.println(e);
+                System.out.println("ERROR: " + e);
             }
         }
+        System.out.println(analyseTX(100));
     }
 
     /**
@@ -99,13 +103,25 @@ public class Main {
         return 0;
     }
 
-    public static int balanceTX(int accid)throws Exception{
+    /**
+     * Gets balance for corresponding account id.
+     *
+     * @param accid the account id
+     * @return returns the balance of the account
+     * @throws Exception throws an exception
+     */
+    public static int balanceTX(final int accid) throws Exception {
         return txManager.balanceTx(accid);
     }
 
-    public static int analyseTX(int delta)throws Exception{
+    /**
+     * Gets Amount of Transactions with specifically this amount deposited.
+     *
+     * @param delta the amount to check
+     * @return returns the balance of the account
+     * @throws Exception throws an exception
+     */
+    public static int analyseTX(final int delta) throws Exception {
         return txManager.analyseTx(delta);
     }
-
-    
 }

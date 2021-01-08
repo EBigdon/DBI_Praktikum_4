@@ -30,17 +30,19 @@ public class TableManager {
         clearTables();
     }
 
-    private static void fillAccounts(final int n, final int maxN) throws SQLException {
+    private static void fillAccounts(final int n, final int maxN)
+            throws SQLException {
         preparedQuery("SET @@session.unique_checks = 0;");
         preparedQuery("SET @@session.foreign_key_checks = 0;");
         String query = """
                 INSERT INTO accounts (`accid`, `name`, `balance`, `branchid`, `address`)
-                SELECT n, SUBSTRING(CONCAT(n, 'ABCDEFGHIJKLMNOPQRST'),1,20),0,(SELECT FLOOR(RAND() *(""" + maxN + """
+                SELECT n, SUBSTRING(CONCAT(n, 'ABCDEFGHIJKLMNOPQRST'),1,20),0,(SELECT FLOOR(RAND() *("""
+                + maxN + """
                 )+1)),SUBSTRING(CONCAT(n,'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNO'),1,68)
                 FROM
                 (
                 select 1*a.N + b.N * 10 + c.N * 100 + d.N * 1000 + e.N * 10000 +  """
-                + ((n-1) * 100000 + 1) + " " + """
+                + ((n - 1) * 100000 + 1) + " " + """
                N
                from (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) a
                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) b
@@ -131,6 +133,9 @@ public class TableManager {
         }
     }
 
+    /**
+     * Clears the History table.
+     */
     public static void clearHistory() {
         ClearTables.clearHistory();
     }
