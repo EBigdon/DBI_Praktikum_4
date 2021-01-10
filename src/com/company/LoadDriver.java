@@ -2,41 +2,50 @@ package com.company;
 
 import java.util.TimerTask;
 
-public class LoadDriver {
-
+public class LoadDriver implements Runnable{
+    private Thread t;
+    private String threadName;
     private static final TXManager txManager = new TXManager();
     private static int n;
-    public static long transactionsDone = 0;
-    public static int timeToRunInSec = 10*60;
+    public static int timeToRunInSec = 10*60/60;
 
-    public LoadDriver(final int n) {
+    public LoadDriver(final String name, final int n) {
+        threadName = name;
+        System.out.println("Creating Thread " +  threadName );
         LoadDriver.n = n;
-        long startTime = System.currentTimeMillis();
+    }
+
+    public void start () {
+        //System.out.println("Starting " +  threadName );
+        if (t == null) {
+            t = new Thread (this, threadName);
+            t.start ();
+        }
+    }
+
+    public void run() {
+        //System.out.println("Running " +  threadName );
+        loadDriver(100);
+    }
+
+    public void loadDriver(final int n) {
+        long transactionsDone = 0;
+        LoadDriver.n = n;
         int timeToRun = timeToRunInSec * 100;
         long end = System.currentTimeMillis() + timeToRun * 4L;
-
         while (System.currentTimeMillis() < end) {
             swingPhase();
         }
-        printTransactions(4);
         end = System.currentTimeMillis() + timeToRun * 5L;
         while (System.currentTimeMillis() < end) {
             messPhase();
+            transactionsDone++;
         }
-        printTransactions(5);
+        System.out.println("Mess Transaktionen: " + transactionsDone +"\nTransaktionen pro Sekunden: " + (float) transactionsDone / ((float) timeToRunInSec * (float) 5 / 10) + "\n");
         end = System.currentTimeMillis() + timeToRun;
         while(System.currentTimeMillis() < end) {
             swingPhase();
         }
-        printTransactions(1);
-    }
-
-    public static void printTransactions(int modifier) {
-        System.out.println("End Transaktionen: "
-                + transactionsDone);
-        System.out.println("Transaktionen pro Sekunden: " + (float) transactionsDone / ((float) timeToRunInSec * (float) modifier / 10));
-        System.out.println();
-        transactionsDone = 0;
     }
 
     private static void swingPhase() {
@@ -65,14 +74,10 @@ public class LoadDriver {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        transactionsDone++;
-
     }
 
     private static void messPhase() {
         swingPhase();
-        transactionsDone++;
     }
 
     private static int randAccid() {
