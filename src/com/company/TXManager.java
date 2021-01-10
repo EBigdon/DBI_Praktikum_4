@@ -15,10 +15,7 @@ public class TXManager {
     private static Connection conn;
 
     TXManager() {
-        String url = "jdbc:mysql://localhost/bench_database";
-        String username = "root";
-        String password = "";
-        conn = openSqlCon(url, username, password);
+        conn = openSqlCon(Main.url, Main.username, Main.password);
     }
     /**
      * Gets balance from Database with corresponding account id.

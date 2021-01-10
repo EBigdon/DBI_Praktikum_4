@@ -15,6 +15,9 @@ public class Main {
      * Instance of TXManager.
      */
     private static final TXManager txManager = new TXManager();
+    public static final String url = "jdbc:mysql://localhost/bench_database";
+    public static final String username = "root";
+    public static final String password = "";
 
     /**
      * Our main function that gets called when program is executed.
@@ -22,10 +25,10 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-
         ButtonFrame frame = new ButtonFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        int n = fillDatabasePls();
 /*
 
         try{
