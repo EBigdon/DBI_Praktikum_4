@@ -13,7 +13,7 @@ public class TransactionsRunnable implements Runnable{
         this.n = n;
     }
 
-    public void start () {
+    public void start() {
         if (t == null) {
             t = new Thread(this, threadName);
             t.start ();
@@ -22,21 +22,21 @@ public class TransactionsRunnable implements Runnable{
 
     public void run() {
         //System.out.println("Running " +  threadName );
-        doTransaction();
+        doTransaction(this.type);
     }
 
-    public void doTransaction(){
-        if(this.type==1){
+    public void doTransaction(int myType){
+        if(myType==1){
             final int tellerid = randTellerid();
             depositTX(randAccid(), tellerid,
                     randBranchid(tellerid), randomDelta());
-        } else if (this.type==2) {
+        } else if (myType==2) {
             try {
                 balanceTX(randAccid());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (this.type==3) {
+        } else if (myType==3) {
             try {
                 analyseTX(randomDelta());
             } catch (Exception e) {

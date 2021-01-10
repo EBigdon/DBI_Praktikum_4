@@ -49,7 +49,7 @@ public class LoadDriver implements Runnable{
     }
 
     private static void doPhase() {
-        double randomNumber = Math.random()-1;
+        double randomNumber = Math.random();
         if (randomNumber < 0.35) {
             try {
                 //balanceTX(randAccid());
