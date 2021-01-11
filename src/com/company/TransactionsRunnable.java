@@ -1,42 +1,81 @@
 package com.company;
 
-public class TransactionsRunnable implements Runnable{
+public class TransactionsRunnable implements Runnable {
+    /**
+     * The Thread.
+     */
     private Thread t;
-    private String threadName;
-    private int type;
+    /**
+     * Name of the Thread.
+     */
+    private final String threadName;
+    /**
+     * Type which Transaction is done.
+     * Allowed Values:
+     * 1: Makes an deposit transaction.
+     * 2: Makes an balance transaction.
+     * 3: Makes an analyse transaction.
+     */
+    private final int type;
+    /**
+     * the n of n-Tps-database.
+     * Standard value would be 100.
+     */
     private static int n;
+    /**
+     * An Instanciation of TXManager class.
+     */
     private static final TXManager txManager = new TXManager();
 
-    public TransactionsRunnable(final String name, final int type, final int n) {
+    /**
+     * public Constructor.
+     *
+     * @param name      name for the Thread
+     * @param typeToSet type of transaction
+     * @param nToSet    n-tps n.
+     */
+    public TransactionsRunnable(final String name,
+                                final int typeToSet, final int nToSet) {
         threadName = name;
-        this.type = type;
-        this.n = n;
+        type = typeToSet;
+        n = nToSet;
     }
 
+    /**
+     * Runnable start.
+     */
     public void start() {
         if (t == null) {
             t = new Thread(this, threadName);
-            t.start ();
+            t.start();
         }
     }
 
+    /**
+     * Runnable run.
+     */
     public void run() {
         //System.out.println("Running " +  threadName );
         doTransaction(this.type);
     }
 
-    public void doTransaction(int myType){
-        if(myType==1){
+    /**
+     * Doing a transaction from type.
+     *
+     * @param myType type of Transaction
+     */
+    public void doTransaction(final int myType) {
+        if (myType == 1) {
             final int tellerid = randTellerid();
             depositTX(randAccid(), tellerid,
                     randBranchid(tellerid), randomDelta());
-        } else if (myType==2) {
+        } else if (myType == 2) {
             try {
                 balanceTX(randAccid());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (myType==3) {
+        } else if (myType == 3) {
             try {
                 analyseTX(randomDelta());
             } catch (Exception e) {
@@ -91,19 +130,40 @@ public class TransactionsRunnable implements Runnable{
         return txManager.analyseTx(delta);
     }
 
+    /**
+     * Gets a random account id.
+     *
+     * @return random account id
+     */
     private static int randAccid() {
         return (int)
                 (Math.random() * ((n + 1) * 100000 - 100001 + 1) + 1);
     }
 
+    /**
+     * Gets a random teller id.
+     *
+     * @return random teller id
+     */
     private static int randTellerid() {
         return (int) (Math.random() * (n * 10) + 1);
     }
 
+    /**
+     * Geta a random branch id.
+     *
+     * @param randomTellerid a teller id to calculate branch id
+     * @return random branch id
+     */
     private static int randBranchid(final int randomTellerid) {
         return (randomTellerid % n) + 1;
     }
 
+    /**
+     * Geta a random deposit amount.
+     *
+     * @return random deposit amount
+     */
     private static int randomDelta() {
         return (int) (Math.random() * 1000 + 1);
     }

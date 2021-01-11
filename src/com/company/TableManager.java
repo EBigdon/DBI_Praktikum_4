@@ -16,8 +16,11 @@ public class TableManager {
      */
     private static Connection conn;
 
+    /**
+     * Constructor of Table Manager.
+     */
     TableManager() {
-        conn = openSqlCon(Main.url, Main.username, Main.password);
+        conn = openSqlCon(Parameters.url, Parameters.username, Parameters.password);
     }
 
     /**

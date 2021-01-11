@@ -15,7 +15,8 @@ public class TXManager {
     private static Connection conn;
 
     TXManager() {
-        conn = openSqlCon(Main.url, Main.username, Main.password);
+        conn = openSqlCon(Parameters.url, Parameters.username,
+                Parameters.password);
     }
     /**
      * Gets balance from Database with corresponding account id.
@@ -121,7 +122,7 @@ public class TXManager {
         String query = "SELECT Count(accid) as Anz FROM history WHERE delta = "
                 + depositAmount + " GROUP BY delta";
         ResultSet rs = executeQuery(query);
-        if(rs.next()) {
+        if (rs.next()) {
             return rs.getInt("Anz");
         }
         return 0;
