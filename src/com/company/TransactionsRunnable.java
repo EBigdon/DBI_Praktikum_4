@@ -65,20 +65,32 @@ public class TransactionsRunnable implements Runnable {
      * @param myType type of Transaction
      */
     public void doTransaction(final int myType) {
+
+        txManager.sql_transaction();
         if (myType == 1) {
-            final int tellerid = randTellerid();
-            depositTX(randAccid(), tellerid,
-                    randBranchid(tellerid), randomDelta());
+            try{
+                final int tellerid = randTellerid();
+                depositTX(randAccid(), tellerid,
+                        randBranchid(tellerid), randomDelta());
+                txManager.sql_commit();
+            }catch(Exception e){
+                txManager.sql_rollback();
+                e.printStackTrace();
+            }
         } else if (myType == 2) {
             try {
                 balanceTX(randAccid());
+                txManager.sql_commit();
             } catch (Exception e) {
+                txManager.sql_rollback();
                 e.printStackTrace();
             }
         } else if (myType == 3) {
             try {
                 analyseTX(randomDelta());
+                txManager.sql_commit();
             } catch (Exception e) {
+                txManager.sql_rollback();
                 e.printStackTrace();
             }
         } else {
