@@ -3,6 +3,7 @@ package gui;
 import com.company.Parameters;
 
 import javax.swing.JFrame;
+import java.awt.*;
 
 public class ButtonFrame extends JFrame {
     /**
@@ -11,8 +12,5 @@ public class ButtonFrame extends JFrame {
     public ButtonFrame() {
         setTitle("Load-Driver");
         setSize(Parameters.windowWidth, Parameters.windowHeight);
-
-        ButtonPanel panel = new ButtonPanel();
-        add(panel);
     }
 }

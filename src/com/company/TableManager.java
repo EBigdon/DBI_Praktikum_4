@@ -20,7 +20,8 @@ public class TableManager {
      * Constructor of Table Manager.
      */
     TableManager() {
-        conn = openSqlCon(Parameters.url, Parameters.username, Parameters.password);
+        conn = openSqlCon(Parameters.url, Parameters.username,
+                Parameters.password);
     }
 
     /**

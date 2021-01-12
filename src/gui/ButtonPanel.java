@@ -12,6 +12,7 @@ public class ButtonPanel extends JPanel {
      */
     public ButtonPanel() {
         JButton startButton = new JButton("START");
+        setBounds(20 , 20 , 800 , 400);
         add(startButton);
 
         StartAction startAction = new StartAction();

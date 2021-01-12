@@ -1,8 +1,5 @@
 package com.company;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 public class LoadDriver implements Runnable {
     /**
      * The Thread.
@@ -58,19 +55,18 @@ public class LoadDriver implements Runnable {
             transactionsDone++;
         }
         switch (threadName.substring(threadName.length() - 1)) {
-            case "1" -> {Parameters.resultOne = transactionsDone;}
-            case "2" -> {Parameters.resultTwo = transactionsDone;}
-            case "3" -> {Parameters.resultThree = transactionsDone;}
-            case "4" -> {Parameters.resultFour = transactionsDone;}
-            case "5" -> {Parameters.resultFive = transactionsDone;}
-            default -> {System.out.println("Threaderror?!?: " + threadName);}
+            case "1" -> Parameters.resultOne = transactionsDone;
+            case "2" -> Parameters.resultTwo = transactionsDone;
+            case "3" -> Parameters.resultThree = transactionsDone;
+            case "4" -> Parameters.resultFour = transactionsDone;
+            case "5" -> Parameters.resultFive = transactionsDone;
+            default -> System.out.println("Thread error,"
+                    + " Thread got named wrong: " + threadName);
         }
         end = System.currentTimeMillis() + timeToRun;
         while (System.currentTimeMillis() < end) {
             doPhase();
         }
-        LocalTime time = LocalTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         System.out.println("TXs: " + transactionsDone + "; TXs/s: "
                 + ((float) transactionsDone
                 / (((float) Parameters.timeToRunInSec * (float) 5 / 10))));

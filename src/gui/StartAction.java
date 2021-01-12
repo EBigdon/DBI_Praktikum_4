@@ -1,8 +1,8 @@
 package gui;
 import com.company.LoadDriver;
 import com.company.Parameters;
-import com.company.TXManager;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -18,7 +18,12 @@ public final class StartAction implements ActionListener {
      * @param event wait for button press
      */
     public void actionPerformed(final ActionEvent event) {
-        TXManager txManager = new TXManager();
+        Parameters.frame.setVisible(false);
+        Parameters.frame = new ButtonFrame();
+        Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Parameters.frame.setVisible(true);
+        ProgressBar progressBar = new ProgressBar();
+        Parameters.frame.setContentPane(progressBar);
         System.out.println("Load Driver started...");
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -32,13 +37,7 @@ public final class StartAction implements ActionListener {
                 runnableLoadDriver.start();
             }
         }
-        int timeToRun = Parameters.timeToRunInSec * 100;
-        long end = System.currentTimeMillis() + timeToRun * 10L;
-        while (System.currentTimeMillis() < end);
-        long totalTransactionsDone = Parameters.resultOne
-                + Parameters.resultTwo + Parameters.resultThree
-                + Parameters.resultFour + Parameters.resultFive;
-        System.out.println("Transactions done during measurement phase: " + (totalTransactionsDone));
-        System.out.println("Transactions per Seconds: " + ((float) totalTransactionsDone / ((float) Parameters.timeToRunInSec * (float) 5 / 10)));
+        ProgressRunnable progressRunnable = new ProgressRunnable(progressBar, "Progress bar Thread");
+        progressRunnable.start();
     }
 }

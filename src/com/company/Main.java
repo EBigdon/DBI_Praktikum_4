@@ -1,6 +1,7 @@
 package com.company;
 
 import gui.ButtonFrame;
+import gui.ButtonPanel;
 
 import javax.swing.JFrame;
 import java.sql.SQLException;
@@ -18,9 +19,11 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-        ButtonFrame frame = new ButtonFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        Parameters.frame = new ButtonFrame();
+        Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Parameters.frame.setVisible(true);
+        ButtonPanel panel = new ButtonPanel();
+        Parameters.frame.add(panel);
         fillDatabase();
     }
 

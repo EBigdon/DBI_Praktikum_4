@@ -2,8 +2,6 @@ package com.company;
 
 import java.sql.ResultSet;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import static com.company.TableManager.openSqlCon;
@@ -13,7 +11,10 @@ public class TXManager {
      * Connection.
      */
     private static Connection conn;
-    public static Statement update_stmt = null;
+    /**
+     * Our Transaction Statement.
+     */
+    public static Statement updateStmt = null;
 
     /**
      * Constructor of TXManager class.
@@ -21,12 +22,13 @@ public class TXManager {
     public TXManager() {
         conn = openSqlCon(Parameters.url, Parameters.username,
                 Parameters.password);
-        try{
-            update_stmt = conn.createStatement();
-        }catch(Exception e){
-            System.out.println(e);
+        try {
+            updateStmt = conn.createStatement();
+        } catch (Exception e) {
+            System.out.println("Couldn't get Connection in TXManager: " + e);
         }
     }
+
     /**
      * Gets balance from Database with corresponding account id.
      *
@@ -55,32 +57,45 @@ public class TXManager {
 
         conn.setAutoCommit(false);
 
-        String cmmnt = "DEP:" + depositAmount + ";BAL:" + (balanceTx(accid) + depositAmount)
+        String cmmnt = "DEP:" + depositAmount + ";BAL:"
+                + (balanceTx(accid) + depositAmount)
                 + ";ACC:" + accid + ";TEL:" + tellerid + ";BRA:"
                 + branchid + ".";
 
         String historyStmt =
                 "INSERT INTO history (accid, tellerid,"
                         + " delta, branchid, accbalance, cmmnt) "
-                        + "VALUES ('"+ accid +"', '" + tellerid + "', '" + depositAmount + "', '"
-                        + branchid + "', '"+ (balanceTx(accid) + depositAmount) + "', '" + cmmnt.substring(0,30) + "');";
+                        + "VALUES ('" + accid + "', '" + tellerid + "', '"
+                        + depositAmount + "', '"
+                        + branchid + "', '" + (balanceTx(accid) + depositAmount)
+                        + "', '" + cmmnt.substring(0, 30) + "');";
 
 
-        String query1 = "UPDATE accounts SET balance = (SELECT balance FROM accounts WHERE accid = '" + accid + "') + '"  + depositAmount + "' WHERE accid = '" + accid + "';";
-        String query2 = "UPDATE branches SET balance = (SELECT balance FROM branches WHERE branchid = '" + branchid + "')+ '" + depositAmount + "' WHERE branchid = '" + branchid + "';";
-        String query3 = "UPDATE tellers  SET balance = (SELECT balance FROM tellers WHERE tellerid = '" + tellerid + "')+ '" + depositAmount + "' WHERE tellerid = '" + tellerid + "';";
+        String query1 = "UPDATE accounts SET balance = "
+                + "(SELECT balance FROM accounts WHERE accid = '"
+                + accid + "') + '" + depositAmount
+                + "' WHERE accid = '" + accid + "';";
+        String query2 = "UPDATE branches SET balance = "
+                + "(SELECT balance FROM branches WHERE branchid = '"
+                + branchid + "')+ '" + depositAmount
+                + "' WHERE branchid = '" + branchid + "';";
+        String query3 = "UPDATE tellers  SET balance = "
+                + "(SELECT balance FROM tellers WHERE tellerid = '"
+                + tellerid + "')+ '" + depositAmount
+                + "' WHERE tellerid = '" + tellerid + "';";
 
 
-        update_stmt.addBatch(query1);
-        update_stmt.addBatch(query2);
-        update_stmt.addBatch(query3);
-        update_stmt.addBatch(historyStmt);
+        updateStmt.addBatch(query1);
+        updateStmt.addBatch(query2);
+        updateStmt.addBatch(query3);
+        updateStmt.addBatch(historyStmt);
 
         return balanceTx(accid);
     }
 
     /**
      * returns value of transactions with depositAmount value.
+     *
      * @param depositAmount DELTA
      * @return Number of previously logged deposits with exactly this amount
      */
@@ -93,35 +108,52 @@ public class TXManager {
         }
         return 0;
     }
-    public static void sql_transaction(){
-        try{
+
+    /**
+     * Adds Transaction Start query to database.
+     */
+    public static void sqlTransaction() {
+        try {
             String query = "START TRANSACTION;";
-            update_stmt.addBatch(query);
-        }catch(Exception e){
+            updateStmt.addBatch(query);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void sql_rollback(){
-        try{
-            String query1 = "ROLLBACK;";
-            update_stmt.addBatch(query1);
-            update_stmt.executeBatch();
-        }catch(Exception e){
+    /**
+     * Rollback database when there was an error.
+     */
+    public static void sqlRollback() {
+        try {
+            String query = "ROLLBACK;";
+            updateStmt.addBatch(query);
+            updateStmt.executeBatch();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void sql_commit(){
-        try{
-            String query1 = "COMMIT;";
-            update_stmt.addBatch(query1);
-            update_stmt.executeBatch();
-        }catch(Exception e){
+    /**
+     * Commits Batch to database.
+     */
+    public static void sqlCommit() {
+        try {
+            String query = "COMMIT;";
+            updateStmt.addBatch(query);
+            updateStmt.executeBatch();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * exectutes Query to database.
+     *
+     * @param query query to execute
+     * @return returns table
+     * @throws Exception throws exception when error in query
+     */
     private static ResultSet executeQuery(final String query) throws Exception {
 
         Statement st = conn.createStatement();

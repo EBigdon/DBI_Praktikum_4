@@ -58,31 +58,31 @@ public class TransactionsRunnable implements Runnable {
      * Doing a transaction from type.
      */
     public void doTransaction() {
-        txManager.sql_transaction();
+        txManager.sqlTransaction();
         if (type == 1) {
-            try{
+            try {
                 final int tellerid = randTellerid();
                 depositTX(randAccid(), tellerid,
                         randBranchid(tellerid), randomDelta());
-                txManager.sql_commit();
-            }catch(Exception e){
-                txManager.sql_rollback();
+                txManager.sqlCommit();
+            } catch (Exception e) {
+                txManager.sqlRollback();
                 e.printStackTrace();
             }
         } else if (type == 2) {
             try {
                 balanceTX(randAccid());
-                txManager.sql_commit();
+                txManager.sqlCommit();
             } catch (Exception e) {
-                txManager.sql_rollback();
+                txManager.sqlRollback();
                 e.printStackTrace();
             }
         } else if (type == 3) {
             try {
                 analyseTX(randomDelta());
-                txManager.sql_commit();
+                txManager.sqlCommit();
             } catch (Exception e) {
-                txManager.sql_rollback();
+                txManager.sqlRollback();
                 e.printStackTrace();
             }
         } else {
@@ -140,8 +140,8 @@ public class TransactionsRunnable implements Runnable {
      * @return random account id
      */
     private static int randAccid() {
-        return (int)
-                (Math.random() * ((Parameters.n + 1) * 100000 - 100001 + 1) + 1);
+        return 1 + (int)
+                (Math.random() * ((Parameters.n + 1) * 100000 - 100001 + 1));
     }
 
     /**
