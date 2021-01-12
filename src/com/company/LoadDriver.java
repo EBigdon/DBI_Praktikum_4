@@ -1,5 +1,8 @@
 package com.company;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class LoadDriver implements Runnable {
     /**
      * The Thread.
@@ -9,20 +12,14 @@ public class LoadDriver implements Runnable {
      * The name of the Thread.
      */
     private final String threadName;
-    /**
-     * n from n-tps database.
-     */
-    private static int n;
 
     /**
      * Constructor of LoadDriver instance.
      *
      * @param name   name of the Thread
-     * @param nToSet n from n-tps
      */
-    public LoadDriver(final String name, final int nToSet) {
+    public LoadDriver(final String name) {
         threadName = name;
-        LoadDriver.n = nToSet;
     }
 
     /**
@@ -39,17 +36,17 @@ public class LoadDriver implements Runnable {
      * The Runnable run method.
      */
     public void run() {
-        loadDriver(n);
+        doLoadDriver();
+        t.stop();
+        Thread.currentThread().interrupt();
+        t = null;
     }
 
     /**
-     * the Load driver constructor.
-     *
-     * @param nToSet n from n-tps.
+     * the Load driver.
      */
-    public void loadDriver(final int nToSet) {
+    public void doLoadDriver() {
         long transactionsDone = 0;
-        LoadDriver.n = nToSet;
         int timeToRun = Parameters.timeToRunInSec * 100;
         long end = System.currentTimeMillis() + timeToRun * 4L;
         while (System.currentTimeMillis() < end) {
@@ -60,32 +57,42 @@ public class LoadDriver implements Runnable {
             doPhase();
             transactionsDone++;
         }
-        System.out.println("TXs: " + transactionsDone + "; TXs/s: "
-                + (float) transactionsDone
-                / ((float) Parameters.timeToRunInSec * (float) 5 / 10));
+        switch (threadName.substring(threadName.length() - 1)) {
+            case "1" -> {Parameters.resultOne = transactionsDone;}
+            case "2" -> {Parameters.resultTwo = transactionsDone;}
+            case "3" -> {Parameters.resultThree = transactionsDone;}
+            case "4" -> {Parameters.resultFour = transactionsDone;}
+            case "5" -> {Parameters.resultFive = transactionsDone;}
+            default -> {System.out.println("Threaderror?!?: " + threadName);}
+        }
         end = System.currentTimeMillis() + timeToRun;
         while (System.currentTimeMillis() < end) {
             doPhase();
         }
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        System.out.println("TXs: " + transactionsDone + "; TXs/s: "
+                + (float) transactionsDone
+                / ((float) Parameters.timeToRunInSec * (float) 5 / 10));
     }
 
     private static void doPhase() {
         double randomNumber = Math.random();
-        if (randomNumber < 0.35) {
+        if (randomNumber < 0.50) {
+            TransactionsRunnable transactionsRunnable
+                    = new TransactionsRunnable("tx1", 1);
+            transactionsRunnable.start();
+        } else if (randomNumber < 0.85) {
             try {
                 TransactionsRunnable transactionsRunnable
-                        = new TransactionsRunnable("tx", 2, n);
+                        = new TransactionsRunnable("tx2", 2);
                 transactionsRunnable.start();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (randomNumber < 0.85) {
-            TransactionsRunnable transactionsRunnable
-                    = new TransactionsRunnable("tx", 1, n);
-            transactionsRunnable.start();
         } else if (randomNumber < 1) {
             TransactionsRunnable transactionsRunnable
-                    = new TransactionsRunnable("tx", 3, n);
+                    = new TransactionsRunnable("tx3", 3);
             transactionsRunnable.start();
         } else {
             System.out.println("RANDOM NUMBER OUT OF BOUNDS");

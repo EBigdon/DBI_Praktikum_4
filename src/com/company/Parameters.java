@@ -24,5 +24,15 @@ public class Parameters {
     /**
      * Height of Window.
      */
-    public static final int windwoHeight = 600;
+    public static final int windowHeight = 600;
+    /**
+     * n from n-tps database.
+     */
+    public static int n = 100;
+
+    public static long resultOne = 0;
+    public static long resultTwo = 0;
+    public static long resultThree = 0;
+    public static long resultFour = 0;
+    public static long resultFive = 0;
 }

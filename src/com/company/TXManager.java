@@ -15,7 +15,10 @@ public class TXManager {
     private static Connection conn;
     public static Statement update_stmt = null;
 
-    TXManager() {
+    /**
+     * Constructor of TXManager class.
+     */
+    public TXManager() {
         conn = openSqlCon(Parameters.url, Parameters.username,
                 Parameters.password);
         try{

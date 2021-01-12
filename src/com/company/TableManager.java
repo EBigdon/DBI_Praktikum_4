@@ -30,19 +30,19 @@ public class TableManager {
         clearTables();
     }
 
-    private static void fillAccounts(final int n, final int maxN)
+    private static void fillAccounts(final int currentPos)
             throws SQLException {
         preparedQuery("SET @@session.unique_checks = 0;");
         preparedQuery("SET @@session.foreign_key_checks = 0;");
         String query = """
                 INSERT INTO accounts (`accid`, `name`, `balance`, `branchid`, `address`)
                 SELECT n, SUBSTRING(CONCAT(n, 'ABCDEFGHIJKLMNOPQRST'),1,20),0,(SELECT FLOOR(RAND() *("""
-                + maxN + """
+                + Parameters.n + """
                 )+1)),SUBSTRING(CONCAT(n,'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNO'),1,68)
                 FROM
                 (
                 select 1*a.N + b.N * 10 + c.N * 100 + d.N * 1000 + e.N * 10000 +  """
-                + ((n - 1) * 100000 + 1) + " " + """
+                + ((currentPos - 1) * 100000 + 1) + " " + """
                N
                from (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) a
                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) b
@@ -94,7 +94,7 @@ public class TableManager {
             branchstmt.setInt(3, 0);
             branchstmt.setString(4, fillString.substring(0, 72));
             branchstmt.execute();
-            fillAccounts(i, n);
+            fillAccounts(i);
             //tellers
             for (int j = 1; j <= 10; j++) {
                 tellerstmt.setInt(1, tellercounter);

@@ -10,7 +10,7 @@ public class ButtonFrame extends JFrame {
      */
     public ButtonFrame() {
         setTitle("Load-Driver");
-        setSize(Parameters.windowWidth, Parameters.windwoHeight);
+        setSize(Parameters.windowWidth, Parameters.windowHeight);
 
         ButtonPanel panel = new ButtonPanel();
         add(panel);

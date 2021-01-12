@@ -18,11 +18,6 @@ public class TransactionsRunnable implements Runnable {
      */
     private final int type;
     /**
-     * the n of n-Tps-database.
-     * Standard value would be 100.
-     */
-    private static int n;
-    /**
      * An Instanciation of TXManager class.
      */
     private static final TXManager txManager = new TXManager();
@@ -32,13 +27,11 @@ public class TransactionsRunnable implements Runnable {
      *
      * @param name      name for the Thread
      * @param typeToSet type of transaction
-     * @param nToSet    n-tps n.
      */
     public TransactionsRunnable(final String name,
-                                final int typeToSet, final int nToSet) {
+                                final int typeToSet) {
         threadName = name;
         type = typeToSet;
-        n = nToSet;
     }
 
     /**
@@ -55,19 +48,18 @@ public class TransactionsRunnable implements Runnable {
      * Runnable run.
      */
     public void run() {
-        //System.out.println("Running " +  threadName );
-        doTransaction(this.type);
+        doTransaction();
+        t.stop();
+        Thread.currentThread().interrupt();
+        t = null;
     }
 
     /**
      * Doing a transaction from type.
-     *
-     * @param myType type of Transaction
      */
-    public void doTransaction(final int myType) {
-
+    public void doTransaction() {
         txManager.sql_transaction();
-        if (myType == 1) {
+        if (type == 1) {
             try{
                 final int tellerid = randTellerid();
                 depositTX(randAccid(), tellerid,
@@ -77,7 +69,7 @@ public class TransactionsRunnable implements Runnable {
                 txManager.sql_rollback();
                 e.printStackTrace();
             }
-        } else if (myType == 2) {
+        } else if (type == 2) {
             try {
                 balanceTX(randAccid());
                 txManager.sql_commit();
@@ -85,7 +77,7 @@ public class TransactionsRunnable implements Runnable {
                 txManager.sql_rollback();
                 e.printStackTrace();
             }
-        } else if (myType == 3) {
+        } else if (type == 3) {
             try {
                 analyseTX(randomDelta());
                 txManager.sql_commit();
@@ -94,7 +86,7 @@ public class TransactionsRunnable implements Runnable {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("ERROR FOR type " + this.type);
+            System.out.println("ERROR FOR type " + type);
         }
     }
 
@@ -149,7 +141,7 @@ public class TransactionsRunnable implements Runnable {
      */
     private static int randAccid() {
         return (int)
-                (Math.random() * ((n + 1) * 100000 - 100001 + 1) + 1);
+                (Math.random() * ((Parameters.n + 1) * 100000 - 100001 + 1) + 1);
     }
 
     /**
@@ -158,7 +150,7 @@ public class TransactionsRunnable implements Runnable {
      * @return random teller id
      */
     private static int randTellerid() {
-        return (int) (Math.random() * (n * 10) + 1);
+        return (int) (Math.random() * (Parameters.n * 10) + 1);
     }
 
     /**
@@ -168,7 +160,7 @@ public class TransactionsRunnable implements Runnable {
      * @return random branch id
      */
     private static int randBranchid(final int randomTellerid) {
-        return (randomTellerid % n) + 1;
+        return (randomTellerid % Parameters.n) + 1;
     }
 
     /**
