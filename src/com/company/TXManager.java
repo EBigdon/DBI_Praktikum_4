@@ -63,12 +63,12 @@ public class TXManager {
                 "INSERT INTO history (accid, tellerid,"
                         + " delta, branchid, accbalance, cmmnt) "
                         + "VALUES ('"+ accid +"', '" + tellerid + "', '" + depositAmount + "', '"
-                        + branchid + "', '"+ (balanceTx(accid) + depositAmount) + "', '" + cmmnt.substring(0,30) + "')";
+                        + branchid + "', '"+ (balanceTx(accid) + depositAmount) + "', '" + cmmnt.substring(0,30) + "');";
 
 
-        String query1 = "UPDATE accounts SET balance = (SELECT balance FROM accounts WHERE accid = '" + accid + "') + '"  + depositAmount + "'";
-        String query2 = "UPDATE branches SET balance = (SELECT balance FROM accounts WHERE accid = '" + branchid + "')+ '" + depositAmount + "'";
-        String query3 = "UPDATE tellers  SET balance = (SELECT balance FROM accounts WHERE accid = '" + tellerid + "')+ '" + depositAmount + "'";
+        String query1 = "UPDATE accounts SET balance = (SELECT balance FROM accounts WHERE accid = '" + accid + "') + '"  + depositAmount + "' WHERE accid = '" + accid + "';";
+        String query2 = "UPDATE branches SET balance = (SELECT balance FROM branches WHERE branchid = '" + branchid + "')+ '" + depositAmount + "' WHERE branchid = '" + branchid + "';";
+        String query3 = "UPDATE tellers  SET balance = (SELECT balance FROM tellers WHERE tellerid = '" + tellerid + "')+ '" + depositAmount + "' WHERE tellerid = '" + tellerid + "';";
 
 
         update_stmt.addBatch(query1);
@@ -95,7 +95,7 @@ public class TXManager {
     }
     public static void sql_transaction(){
         try{
-            String query = "START TRANSACTION";
+            String query = "START TRANSACTION;";
             update_stmt.addBatch(query);
         }catch(Exception e){
             e.printStackTrace();
@@ -104,8 +104,8 @@ public class TXManager {
 
     public static void sql_rollback(){
         try{
-            String query = "ROLLBACK";
-            update_stmt.addBatch(query);
+            String query1 = "ROLLBACK;";
+            update_stmt.addBatch(query1);
             update_stmt.executeBatch();
         }catch(Exception e){
             e.printStackTrace();
@@ -114,8 +114,8 @@ public class TXManager {
 
     public static void sql_commit(){
         try{
-            String query = "COMMIT";
-            update_stmt.addBatch(query);
+            String query1 = "COMMIT;";
+            update_stmt.addBatch(query1);
             update_stmt.executeBatch();
         }catch(Exception e){
             e.printStackTrace();
@@ -128,5 +128,4 @@ public class TXManager {
         return st.executeQuery(query);
 
     }
-
 }

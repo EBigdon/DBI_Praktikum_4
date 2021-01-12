@@ -16,7 +16,7 @@ public class Parameters {
     /**
      * Time to run in seconds for the LoadDriver.
      */
-    public static final int timeToRunInSec = 10 * 60 / 60;
+    public static final int timeToRunInSec = 10 * 60;
     /**
      * Width of window.
      */
