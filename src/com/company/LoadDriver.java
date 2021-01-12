@@ -72,8 +72,8 @@ public class LoadDriver implements Runnable {
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         System.out.println("TXs: " + transactionsDone + "; TXs/s: "
-                + (float) transactionsDone
-                / ((float) Parameters.timeToRunInSec * (float) 5 / 10));
+                + ((float) transactionsDone
+                / (((float) Parameters.timeToRunInSec * (float) 5 / 10))));
     }
 
     private static void doPhase() {

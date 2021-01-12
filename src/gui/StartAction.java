@@ -39,6 +39,6 @@ public final class StartAction implements ActionListener {
                 + Parameters.resultTwo + Parameters.resultThree
                 + Parameters.resultFour + Parameters.resultFive;
         System.out.println("Transactions done during measurement phase: " + (totalTransactionsDone));
-        System.out.println("Transactions per Seconds: " + ((float) totalTransactionsDone / ((float) Parameters.timeToRunInSec) / (float) 2));
+        System.out.println("Transactions per Seconds: " + ((float) totalTransactionsDone / ((float) Parameters.timeToRunInSec * (float) 5 / 10)));
     }
 }
