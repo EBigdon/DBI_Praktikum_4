@@ -160,4 +160,8 @@ public class TXManager {
         return st.executeQuery(query);
 
     }
+
+    public static void testStoredProceduresDeleteLaterPls() {
+        StoredProceduresManager proceduresManager = new StoredProceduresManager(conn);
+    }
 }
