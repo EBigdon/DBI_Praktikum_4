@@ -11,6 +11,8 @@ public class StoredProceduresManager {
     public StoredProceduresManager(Connection conn) {
         this.conn = conn;
         testProcedure();
+        System.out.println("\n\n\n\n");
+        analyseProcedure(100);
     }
 
     public static void testProcedure() {
@@ -30,7 +32,23 @@ public class StoredProceduresManager {
 
     }
 
-    public static void createTestProcedure() {
-        String toCreate = "CREATE PROCEDURE `testProcedure`(IN `balanceToCheck` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER SELECT branchid, balance FROM `branches` WHERE balance < balanceToCheck ORDER BY `balance` ASC";
+    public static void analyseProcedure(final int depositAmount) {
+        try {
+            CallableStatement stmt = conn.prepareCall("{call analyseProcedure(" + depositAmount + " )}");
+            Boolean hasResult = stmt.execute();
+            if (hasResult) {
+                ResultSet res = stmt.getResultSet();
+                while (res.next()) {
+                    System.out.println(res.getInt("Anz"));
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public static void StringsToCreateProcedures() {
+        String test = "CREATE PROCEDURE `testProcedure`(IN `balanceToCheck` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER SELECT branchid, balance FROM `branches` WHERE balance < balanceToCheck ORDER BY `balance` ASC";
+        String analyseProcedure = "CREATE PROCEDURE `analyseProcedure`(IN `depositAmount` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER SELECT Count(accid) as Anz FROM history WHERE delta = depositAmount GROUP BY delta; ";
     }
 }
