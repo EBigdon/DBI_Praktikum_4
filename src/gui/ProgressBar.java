@@ -1,11 +1,8 @@
 package gui;
 
-import com.company.Parameters;
+import progam.Parameters;
 
 import javax.swing.*;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class ProgressBar extends JPanel {
     JProgressBar pbar;

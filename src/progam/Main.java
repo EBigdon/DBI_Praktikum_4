@@ -1,4 +1,4 @@
-package com.company;
+package progam;
 
 import gui.ButtonFrame;
 import gui.ButtonPanel;

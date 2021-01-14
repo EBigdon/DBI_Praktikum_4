@@ -1,4 +1,4 @@
-package com.company;
+package progam;
 
 public class TransactionsRunnable implements Runnable {
     /**

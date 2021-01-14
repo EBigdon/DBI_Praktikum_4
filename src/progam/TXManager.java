@@ -1,10 +1,8 @@
-package com.company;
+package progam;
 
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.Statement;
-
-import static com.company.TableManager.openSqlCon;
 
 public class TXManager {
     /**
@@ -24,7 +22,7 @@ public class TXManager {
      * Constructor of TXManager class.
      */
     public TXManager() {
-        conn = openSqlCon(Parameters.url, Parameters.username,
+        conn = TableManager.openSqlCon(Parameters.url, Parameters.username,
                 Parameters.password);
         try {
             updateStmt = conn.createStatement();

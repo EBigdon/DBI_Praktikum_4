@@ -1,4 +1,4 @@
-package com.company;
+package progam;
 
 import java.sql.Connection;
 import java.sql.CallableStatement;

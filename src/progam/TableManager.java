@@ -1,4 +1,4 @@
-package com.company;
+package progam;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-import static com.company.ClearTables.clearTables;
+import static progam.ClearTables.clearTables;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TableManager {

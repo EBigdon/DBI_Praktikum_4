@@ -1,10 +1,9 @@
 package gui;
 
-import com.company.Parameters;
+import progam.Parameters;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.*;
 
 /**
  * Button panel class.

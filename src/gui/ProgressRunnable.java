@@ -1,7 +1,6 @@
 package gui;
 
-import com.company.Parameters;
-import com.company.TXManager;
+import progam.Parameters;
 
 import javax.swing.*;
 import java.time.LocalTime;
