@@ -51,13 +51,8 @@ public class StoredProceduresManager {
                             + newBal + ",'"
                             + cmmnt.substring(0, 30)
                             + "')}");
-            boolean hasResult = stmt.execute();
-            if (hasResult) {
-                ResultSet res = stmt.getResultSet();
-                if (res.next()) {
-                    return res.getInt("balance");
-                }
-            }
+            stmt.execute();
+            return newBal;
         } catch (SQLException exception) {
             exception.printStackTrace();
             String query = "ROLLBACK;";
