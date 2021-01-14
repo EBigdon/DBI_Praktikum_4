@@ -54,6 +54,7 @@ public class LoadDriver implements Runnable {
             doPhase();
             transactionsDone++;
         }
+        end = System.currentTimeMillis() + timeToRun;
         switch (threadName.substring(threadName.length() - 1)) {
             case "1" -> Parameters.resultOne = transactionsDone;
             case "2" -> Parameters.resultTwo = transactionsDone;
@@ -63,11 +64,10 @@ public class LoadDriver implements Runnable {
             default -> System.out.println("Thread error,"
                     + " Thread got named wrong: " + threadName);
         }
-        end = System.currentTimeMillis() + timeToRun;
         while (System.currentTimeMillis() < end) {
             doPhase();
         }
-        System.out.println("TXs: " + transactionsDone + "; TXs/s: "
+        System.out.println(threadName +"--> TXs: " + transactionsDone + "; TXs/s: "
                 + ((float) transactionsDone
                 / (((float) Parameters.timeToRunInSec * (float) 5 / 10))));
     }

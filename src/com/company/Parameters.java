@@ -18,15 +18,15 @@ public class Parameters {
     /**
      * Time to run in seconds for the LoadDriver.
      */
-    public static final int timeToRunInSec = 10 * 60 / 60;
+    public static final int timeToRunInSec = 600;
     /**
      * Width of window.
      */
-    public static final  int windowWidth = 1920;
+    public static final  int windowWidth = 1600;
     /**
      * Height of Window.
      */
-    public static final int windowHeight = 1080;
+    public static final int windowHeight = 900;
     /**
      * n from n-tps database.
      */
