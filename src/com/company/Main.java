@@ -19,21 +19,6 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-
-
-
-
-
-
-
-        TXManager txManager = new TXManager();
-        txManager.testStoredProceduresDeleteLaterPls();
-
-
-
-
-
-
         Parameters.frame = new ButtonFrame();
         Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Parameters.frame.setVisible(true);

@@ -68,8 +68,8 @@ public class StoredProceduresManager {
                 Statement updateStmt = conn.createStatement();
                 updateStmt.addBatch(query);
                 updateStmt.executeBatch();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
             }
         }
         return 0;
@@ -104,7 +104,7 @@ public class StoredProceduresManager {
      * @param depositAmount delta
      * @return number of deposits with this deposit amount.
      */
-    public static int analyseProcedure(final int depositAmount) {
+    public static int analyseProcedure(final float depositAmount) {
         try {
             CallableStatement stmt = conn.prepareCall(
                     "{call analyseProcedure(" + depositAmount + " )}");
