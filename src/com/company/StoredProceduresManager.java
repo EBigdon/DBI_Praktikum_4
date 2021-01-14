@@ -22,9 +22,6 @@ public class StoredProceduresManager {
      */
     public StoredProceduresManager(final Connection connection) {
         conn = connection;
-        analyseProcedure(100);
-        balanceProcedure(519847);
-        depositProcedure(519847, 111, 90, 200);
     }
 
     /**
