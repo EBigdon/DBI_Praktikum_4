@@ -67,7 +67,7 @@ public class LoadDriver implements Runnable {
         while (System.currentTimeMillis() < end) {
             doPhase();
         }
-        System.out.println(threadName +"--> TXs: " + transactionsDone + "; TXs/s: "
+        System.out.println(" TXs: " + transactionsDone + "; TXs/s: "
                 + ((float) transactionsDone
                 / (((float) Parameters.timeToRunInSec * (float) 5 / 10))));
     }

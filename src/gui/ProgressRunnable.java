@@ -2,7 +2,8 @@ package gui;
 
 import progam.Parameters;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +16,10 @@ public class ProgressRunnable implements Runnable {
      * Name of the Thread.
      */
     private final String threadName;
-
+    /**
+     * The progress bar.
+     */
+    private ProgressBar it;
     /**
      * Runnable start.
      */
@@ -25,8 +29,6 @@ public class ProgressRunnable implements Runnable {
             t.start();
         }
     }
-
-    public ProgressBar it;
 
     /**
      * Constructor of runnable class.
@@ -64,7 +66,8 @@ public class ProgressRunnable implements Runnable {
             long timeYo = end - System.currentTimeMillis();
             float percentageFinished = (1 - ((float) timeYo
                     / (float) timeTillEnd)) * 100;
-            SwingUtilities.invokeLater(() -> it.updateBar((int) percentageFinished));
+            SwingUtilities.invokeLater(()
+                    -> it.updateBar((int) percentageFinished));
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {

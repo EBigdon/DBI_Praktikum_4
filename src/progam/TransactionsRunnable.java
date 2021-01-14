@@ -113,9 +113,8 @@ public class TransactionsRunnable implements Runnable {
      *
      * @param accid the account id
      * @return returns the balance of the account
-     * @throws Exception throws an exception
      */
-    public static int balanceTX(final int accid) throws Exception {
+    public static int balanceTX(final int accid) {
         return txManager.balanceTx(accid);
     }
 
@@ -124,9 +123,8 @@ public class TransactionsRunnable implements Runnable {
      *
      * @param delta the amount to check
      * @return returns the balance of the account
-     * @throws Exception throws an exception
      */
-    public static int analyseTX(final int delta) throws Exception {
+    public static int analyseTX(final int delta) {
         return txManager.analyseTx(delta);
     }
 

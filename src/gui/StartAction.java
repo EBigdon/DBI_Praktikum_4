@@ -2,7 +2,7 @@ package gui;
 import progam.LoadDriver;
 import progam.Parameters;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -37,7 +37,8 @@ public final class StartAction implements ActionListener {
                 runnableLoadDriver.start();
             }
         }
-        ProgressRunnable progressRunnable = new ProgressRunnable(progressBar, "Progress bar Thread");
+        ProgressRunnable progressRunnable
+                = new ProgressRunnable(progressBar, "Progress bar Thread");
         progressRunnable.start();
     }
 }

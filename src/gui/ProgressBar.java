@@ -2,30 +2,43 @@ package gui;
 
 import progam.Parameters;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 public class ProgressBar extends JPanel {
-    JProgressBar pbar;
-
+    /**
+     * The progress bar.
+     */
+    private JProgressBar progressBar;
+    /**
+     * Minimum value of progress bar.
+     */
     static final int MY_MINIMUM = 0;
-
+    /**
+     * Maximum value of progress bar.
+     */
     static final int MY_MAXIMUM = 100;
 
+    /**
+     * Progress bar constructor.
+     */
     public ProgressBar() {
-        pbar = new JProgressBar();
-        pbar.setMinimum(MY_MINIMUM);
-        pbar.setMaximum(MY_MAXIMUM);
-        //setBounds(500 , 500 , 8000 , 4000);
-        //setLayout(new GridLayout(1, 1));
-        //setPreferredSize(new Dimension(2000, 4000));
-        //pbar.setSize(new Dimension(Parameters.windowWidth,Parameters.windowHeight/4));
+        progressBar = new JProgressBar();
+        progressBar.setMinimum(MY_MINIMUM);
+        progressBar.setMaximum(MY_MAXIMUM);
         setLayout(null);
-        //pbar.setSize(Parameters.windowWidth,Parameters.windowHeight/4);
-        pbar.setBounds(10,10,Parameters.windowWidth-20,Parameters.windowHeight/4);
-        add(pbar);
+        progressBar.setBounds(10, 10,
+                Parameters.windowWidth - 20,
+                Parameters.windowHeight / 4);
+        add(progressBar);
     }
 
-    public void updateBar(int newValue) {
-        pbar.setValue(newValue);
+    /**
+     * Sets progress bar to given value.
+     *
+     * @param newValue value to set
+     */
+    public void updateBar(final int newValue) {
+        progressBar.setValue(newValue);
     }
 }

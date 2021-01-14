@@ -117,13 +117,4 @@ public class StoredProceduresManager {
         }
         return 0;
     }
-
-    /**
-     * Methode with sql commands to create Stored Procedures..
-     */
-    public static void stringsToCreateProcedures() {
-        String analyse = "CREATE PROCEDURE `analyseProcedure`(IN `depositAmount` INT) COMMENT 'represents the analyse transaction' NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SELECT Count(accid) as Anz FROM history WHERE delta = depositAmount GROUP BY delta; END";
-        String balance = "CREATE PROCEDURE `balanceProcedure`(IN `accountid` INT) COMMENT 'represents the balance transaction' NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SELECT balance FROM accounts WHERE accid = accountid; END";
-        String deposit = "CREATE PROCEDURE `depositProcedure`(IN `accountId` INT, IN `depositAmount` INT, IN `braId` INT, IN `telId` INT, IN `newBal` INT, IN `comm` CHAR(30)) COMMENT 'represents deposit transaction' NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN UPDATE accounts SET balance = (SELECT balance FROM accounts WHERE accid = accountId) + depositAmount WHERE accid = accountId; UPDATE branches SET balance = (SELECT balance FROM branches WHERE branchid = braId) + depositAmount WHERE branchid = braId; UPDATE tellers SET balance = (SELECT balance FROM tellers WHERE tellerid = telId) + depositAmount WHERE tellerid = telId; INSERT INTO history (accid, tellerid, delta, branchid, accbalance, history.cmmnt) VALUES (accountId,telId,depositAmount,braId,newBal,comm); END";
-    }
 }
