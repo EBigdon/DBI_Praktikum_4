@@ -22,9 +22,79 @@ public class TableManager {
     TableManager() {
         conn = openSqlCon(Parameters.url, Parameters.username,
                 Parameters.password);
-        String analyse = "CREATE PROCEDURE IF NOT EXISTS `analyseProcedure`(IN `depositAmount` INT) COMMENT 'represents the analyse transaction' NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SELECT Count(accid) as Anz FROM history WHERE delta = depositAmount GROUP BY delta; END";
-        String balance = "CREATE PROCEDURE IF NOT EXISTS `balanceProcedure`(IN `accountid` INT) COMMENT 'represents the balance transaction' NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SELECT balance FROM accounts WHERE accid = accountid; END";
-        String deposit = "CREATE PROCEDURE IF NOT EXISTS `depositProcedure`(IN `accountId` INT, IN `depositAmount` INT, IN `braId` INT, IN `telId` INT, IN `newBal` INT, IN `comm` CHAR(30)) COMMENT 'represents deposit transaction' NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN UPDATE accounts SET balance = (SELECT balance FROM accounts WHERE accid = accountId) + depositAmount WHERE accid = accountId; UPDATE branches SET balance = (SELECT balance FROM branches WHERE branchid = braId) + depositAmount WHERE branchid = braId; UPDATE tellers SET balance = (SELECT balance FROM tellers WHERE tellerid = telId) + depositAmount WHERE tellerid = telId; INSERT INTO history (accid, tellerid, delta, branchid, accbalance, history.cmmnt) VALUES (accountId,telId,depositAmount,braId,newBal,comm); END";
+        String analyse = """
+                CREATE PROCEDURE IF NOT EXISTS `analyseProcedure`(
+                    IN `depositAmount` INT
+                ) COMMENT 'represents the analyse transaction'
+                NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER
+                BEGIN
+                    SELECT COUNT(accid) AS Anz
+                    FROM history
+                    WHERE delta = depositAmount
+                    GROUP BY delta;
+                END
+                """;
+        String balance = """
+                CREATE PROCEDURE IF NOT EXISTS `balanceProcedure`(
+                    IN `accountid` INT
+                ) COMMENT 'represents the balance transaction'\s
+                    NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER
+                BEGIN
+                    SELECT balance
+                    FROM accounts
+                    WHERE accid = accountid;
+                END
+                """;
+        String deposit = """
+                CREATE PROCEDURE IF NOT EXISTS `depositProcedure`(
+                    IN `accountId` INT,
+                    IN `depositAmount` INT,
+                    IN `braId` INT,
+                    IN `telId` INT,
+                    IN `newBal` INT,
+                    IN `comm` CHAR(30)
+                ) COMMENT 'represents deposit transaction' 
+                NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER
+                BEGIN
+                    UPDATE accounts
+                    SET balance = (
+                        SELECT balance
+                        FROM accounts
+                        WHERE accid = accountId
+                    ) + depositAmount
+                    WHERE accid = accountId;
+                    UPDATE branches
+                    SET balance = (
+                        SELECT balance
+                        FROM branches
+                        WHERE branchid = braId
+                    ) + depositAmount
+                    WHERE branchid = braId;
+                    UPDATE tellers
+                    SET balance = (
+                        SELECT balance
+                        FROM tellers
+                        WHERE tellerid = telId
+                    ) + depositAmount
+                    WHERE tellerid = telId;
+                    INSERT INTO history(
+                        accid,
+                        tellerid,
+                        delta,
+                        branchid,
+                        accbalance,
+                        cmmnt
+                    )
+                    VALUES(
+                        accountId,
+                        telId,
+                        depositAmount,
+                        braId,
+                        newBal,
+                        comm
+                    );
+                END
+                """;
         try {
             System.out.println(executeUpdate(analyse));
             System.out.println(executeUpdate(balance));
@@ -58,22 +128,36 @@ public class TableManager {
         preparedQuery("SET @@session.unique_checks = 0;");
         preparedQuery("SET @@session.foreign_key_checks = 0;");
         String query = """
-                INSERT INTO accounts (`accid`, `name`, `balance`, `branchid`, `address`)
-                SELECT n, SUBSTRING(CONCAT(n, 'ABCDEFGHIJKLMNOPQRST'),1,20),0,(SELECT FLOOR(RAND() *("""
+                INSERT INTO accounts (
+                     `accid`,
+                     `name`,
+                     `balance`,
+                     `branchid`,
+                     `address`
+                )
+                SELECT n,
+                 SUBSTRING(CONCAT(n, 'ABCDEFGHIJKLMNOPQRST'),1,20),
+                 0,
+                (SELECT FLOOR(RAND() *(
+                """
                 + Parameters.n + """
-                )+1)),SUBSTRING(CONCAT(n,'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNO'),1,68)
+                )+1)),SUBSTRING(CONCAT(n,
+                'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNO'
+                ),1,68)
                 FROM
                 (
-                select 1*a.N + b.N * 10 + c.N * 100 + d.N * 1000 + e.N * 10000 +  """
+                select 1*a.N + b.N * 10 + c.N * 100 + d.N * 1000
+                + e.N * 10000 +
+                """
                 + ((currentPos - 1) * 100000 + 1) + " " + """
-               N
-               from (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) a
-                      , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) b
-                      , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) c
-                      , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) d
-                    , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) e
-                order by n
-                ) t""";
+                N
+                from (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) a
+                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) b
+                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) c
+                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) d
+                     , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) e
+                 order by n
+                 ) t""";
         preparedQuery(query);
     }
 
@@ -98,6 +182,7 @@ public class TableManager {
 
     /**
      * Fills our Database with the Tupel.
+     *
      * @param n our n-tps count.
      * @throws SQLException Our SQLException when trying to fill tables.
      */
@@ -133,6 +218,7 @@ public class TableManager {
 
     /**
      * Takes a Query and executes it by a prepared Statement.
+     *
      * @param query the sql query
      * @throws SQLException the Exception
      */
@@ -163,4 +249,3 @@ public class TableManager {
         ClearTables.clearHistory();
     }
 }
-
