@@ -108,16 +108,14 @@ public class TXManager {
     }
 
     /**
-     * exectutes Query to database.
+     * executes Query to database.
      *
      * @param query query to execute
      * @return returns table
      * @throws Exception throws exception when error in query
      */
     private static ResultSet executeQuery(final String query) throws Exception {
-
         Statement st = conn.createStatement();
         return st.executeQuery(query);
-
     }
 }
