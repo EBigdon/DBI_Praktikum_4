@@ -4,6 +4,8 @@ import com.company.Parameters;
 import com.company.TXManager;
 
 import javax.swing.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class ProgressRunnable implements Runnable {
     /**
@@ -65,11 +67,14 @@ public class ProgressRunnable implements Runnable {
                     / (float) timeTillEnd)) * 100;
             SwingUtilities.invokeLater(() -> it.updateBar((int) percentageFinished));
             try {
-                Thread.sleep(1);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        System.out.println("Start Time: " + time.format(formatter));
         long totalTransactionsDone = Parameters.resultOne
                 + Parameters.resultTwo + Parameters.resultThree
                 + Parameters.resultFour + Parameters.resultFive;

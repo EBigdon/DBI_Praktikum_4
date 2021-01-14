@@ -37,8 +37,8 @@ public class Main {
         System.out.println("Welcher Skalierungsfaktor soll verwendet werden?"
                 + "(0 um aktuellen Zustand beizubehalten):");
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
         new TableManager();
+        int n = scanner.nextInt();
         if (n != 0) {
             TableManager.createTables();
             long start = System.currentTimeMillis();

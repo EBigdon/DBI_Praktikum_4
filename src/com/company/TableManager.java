@@ -96,9 +96,9 @@ public class TableManager {
                 END
                 """;
         try {
-            System.out.println(executeUpdate(analyse));
-            System.out.println(executeUpdate(balance));
-            System.out.println(executeUpdate(deposit));
+            executeUpdate(analyse);
+            executeUpdate(balance);
+            executeUpdate(deposit);
         } catch (Exception e) {
             e.printStackTrace();
         }
