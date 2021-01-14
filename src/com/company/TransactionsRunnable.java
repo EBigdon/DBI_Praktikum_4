@@ -58,9 +58,9 @@ public class TransactionsRunnable implements Runnable {
      * Doing a transaction from type.
      */
     public void doTransaction() {
-        txManager.sqlTransaction();
         if (type == 1) {
             try {
+                txManager.sqlTransaction();
                 final int tellerid = randTellerid();
                 depositTX(randAccid(), tellerid,
                         randBranchid(tellerid), randomDelta());
@@ -72,17 +72,13 @@ public class TransactionsRunnable implements Runnable {
         } else if (type == 2) {
             try {
                 balanceTX(randAccid());
-                txManager.sqlCommit();
             } catch (Exception e) {
-                txManager.sqlRollback();
                 e.printStackTrace();
             }
         } else if (type == 3) {
             try {
                 analyseTX(randomDelta());
-                txManager.sqlCommit();
             } catch (Exception e) {
-                txManager.sqlRollback();
                 e.printStackTrace();
             }
         } else {
