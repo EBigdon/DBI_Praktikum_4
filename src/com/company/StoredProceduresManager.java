@@ -1,37 +1,24 @@
 package com.company;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class StoredProceduresManager {
     private static Connection conn;
 
     public StoredProceduresManager(Connection conn) {
         this.conn = conn;
-        //testProcedure();
         analyseProcedure(100);
         balanceProcedure(519847);
-        depositProcedure(519847, 111,90
-        , 200);
-    }
-
-    public static void testProcedure() {
-        try {
-            CallableStatement stmt = conn.prepareCall("{call testProcedure(175000)}");
-            Boolean hasResult = stmt.execute();
-            if (hasResult) {
-                ResultSet res = stmt.getResultSet();
-                while (res.next()) {
-                    System.out.println(res.getInt("balance"));
-                }
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-
+        depositProcedure(519847, 111, 90
+                , 200);
     }
 
     public static int depositProcedure(final int accid, final int tellerid,
-                                final int branchid, final int depositAmount) {
+                                       final int branchid, final int depositAmount) {
         String cmmnt = "DEP:" + depositAmount + ";BAL:"
                 + (balanceProcedure(accid) + depositAmount)
                 + ";ACC:" + accid + ";TEL:" + tellerid + ";BRA:"
