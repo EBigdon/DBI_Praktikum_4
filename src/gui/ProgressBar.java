@@ -1,5 +1,7 @@
 package gui;
 
+import com.company.Parameters;
+
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -16,9 +18,13 @@ public class ProgressBar extends JPanel {
         pbar = new JProgressBar();
         pbar.setMinimum(MY_MINIMUM);
         pbar.setMaximum(MY_MAXIMUM);
-        setBounds(50 , 50 , 800 , 400);
-        setLayout(new GridLayout(10, 20));
-        setPreferredSize(new Dimension(2000, 4000));
+        //setBounds(500 , 500 , 8000 , 4000);
+        //setLayout(new GridLayout(1, 1));
+        //setPreferredSize(new Dimension(2000, 4000));
+        //pbar.setSize(new Dimension(Parameters.windowWidth,Parameters.windowHeight/4));
+        setLayout(null);
+        //pbar.setSize(Parameters.windowWidth,Parameters.windowHeight/4);
+        pbar.setBounds(10,10,Parameters.windowWidth-20,Parameters.windowHeight/4);
         add(pbar);
     }
 
