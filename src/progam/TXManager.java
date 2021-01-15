@@ -72,8 +72,10 @@ public class TXManager {
      */
     public static void sqlTransaction() {
         try {
-            String query = "START TRANSACTION;";
-            updateStmt.addBatch(query);
+            String query1 = "SET foreign_key_checks = 0;";
+            String query2 = "START TRANSACTION;";
+            updateStmt.addBatch(query1);
+            updateStmt.addBatch(query2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,8 +86,10 @@ public class TXManager {
      */
     public static void sqlRollback() {
         try {
-            String query = "ROLLBACK;";
-            updateStmt.addBatch(query);
+            String query1 = "ROLLBACK;";
+            String query2 = "SET foreign_key_checks = 1;";
+            updateStmt.addBatch(query1);
+            updateStmt.addBatch(query2);
             updateStmt.executeBatch();
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,8 +101,10 @@ public class TXManager {
      */
     public static void sqlCommit() {
         try {
-            String query = "COMMIT;";
-            updateStmt.addBatch(query);
+            String query1 = "COMMIT;";
+            String query2 = "SET foreign_key_checks = 0;";
+            updateStmt.addBatch(query1);
+            updateStmt.addBatch(query2);
             updateStmt.executeBatch();
         } catch (Exception e) {
             e.printStackTrace();
