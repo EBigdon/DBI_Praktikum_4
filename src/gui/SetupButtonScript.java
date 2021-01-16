@@ -12,25 +12,19 @@ public class SetupButtonScript implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Parameters.frame.startProgram();
-        System.out.println("Welcher Skalierungsfaktor soll verwendet werden?"
-                + "(0 um aktuellen Zustand beizubehalten):");
-        Scanner scanner = new Scanner(System.in);
+        Parameters.frame.writeTextField("Füllt Datenbank mit 100-TPs.");
+        System.out.println("Füllt Datenbank mit 100-TPs.");
         new TableManager();
-        int n = scanner.nextInt();
-        if (n != 0) {
-            TableManager.createTables();
-            long start = System.currentTimeMillis();
-            try {
-                TableManager.fillDatabase(n);
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-            }
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
-        } else {
-            TableManager.clearHistory();
+        TableManager.createTables();
+        long start = System.currentTimeMillis();
+        try {
+            TableManager.fillDatabase(100);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
+        long finish = System.currentTimeMillis();
+        long timeElapsed = finish - start;
+        System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
         Parameters.frame.finishProgram();
     }
 }

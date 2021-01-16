@@ -51,7 +51,8 @@ public class StartPanel extends JFrame{
         }
         return 0;
     }
-    public void writeTextField(String Text){
-        History.setText(Text);
+    public void writeTextField(String Text) {
+        String current = History.getText();
+        History.setText(current + Text + "\n");
     }
 }
