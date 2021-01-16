@@ -2,7 +2,7 @@ package gui;
 
 import program.Parameters;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,7 +18,7 @@ public class ProgressRunnable implements Runnable {
     /**
      * The progress bar.
      */
-    private ProgressBar it;
+    private JProgressBar it;
     /**
      * Runnable start.
      */
@@ -34,7 +34,7 @@ public class ProgressRunnable implements Runnable {
      * @param myProgressBar Progressbar to modify
      * @param name name of the thread
      */
-    public ProgressRunnable(ProgressBar myProgressBar, final String name) {
+    public ProgressRunnable(JProgressBar myProgressBar, final String name) {
         it = myProgressBar;
         threadName = name;
     }
@@ -60,7 +60,7 @@ public class ProgressRunnable implements Runnable {
             float percentageFinished = (1 - ((float) timeYo
                     / (float) timeTillEnd)) * 100;
             SwingUtilities.invokeLater(()
-                    -> it.updateBar((int) percentageFinished));
+                    -> it.setValue((int) percentageFinished));
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {

@@ -63,10 +63,12 @@ public class LoadDriver implements Runnable {
             case "5" -> Parameters.resultFive = transactionsDone;
             default -> System.out.println("Thread error,"
                     + " Thread got named wrong: " + threadName);
+
         }
         while (System.currentTimeMillis() < end) {
             doPhase();
         }
+        Parameters.frame.finishProgram();
         System.out.println(" TXs: " + transactionsDone + "; TXs/s: "
                 + ((float) transactionsDone
                 / (((float) Parameters.timeToRunInSec * (float) 5 / 10))));

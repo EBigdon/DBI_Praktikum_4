@@ -13,10 +13,8 @@ public class StartButtonScript implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Parameters.frame.startProgram();
         JLabel lable = new JLabel("Programm gestartet");
-        ProgressBar progressBar = new ProgressBar(10, Parameters.windowHeight - 100,
-                Parameters.windowWidth - 20, 40);
-        Parameters.frame.setContentPane(progressBar);
         System.out.println("Load Driver started...");
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -30,7 +28,9 @@ public class StartButtonScript implements ActionListener {
                 runnableLoadDriver.start();
             }
         }
-        ProgressRunnable progressRunnable = new ProgressRunnable(progressBar, "Progress bar Thread");
+        ProgressRunnable progressRunnable = new ProgressRunnable(Parameters.frame.progressBar1, "Progress bar Thread");
         progressRunnable.start();
+
+
     }
 }

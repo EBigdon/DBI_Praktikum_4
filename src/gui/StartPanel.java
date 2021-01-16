@@ -1,13 +1,14 @@
 package gui;
 
+import program.Parameters;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class StartPanel extends JFrame{
-    private JButton startButton;
-    private JButton clearButton;
-    private JButton setupButton;
+    public JButton startButton;
+    public JButton clearButton;
+    public JButton setupButton;
     public JProgressBar progressBar1;
     private JFormattedTextField formattedTextField1;
     private JTextArea History;
@@ -17,6 +18,7 @@ public class StartPanel extends JFrame{
     public StartPanel(){
         add(rootPanel);
 
+        formattedTextField1.setValue("10");
         StartButtonScript startAction = new StartButtonScript();
         startButton.addActionListener(startAction);
         ClearButtonScript clearAction = new ClearButtonScript();
@@ -26,5 +28,28 @@ public class StartPanel extends JFrame{
 
         setTitle("Server-Benchmark");
         setSize(800,600);
+    }
+    public void startProgram(){
+        startButton.setEnabled(false);
+        clearButton.setEnabled(false);
+        setupButton.setEnabled(false);
+        formattedTextField1.setEnabled(false);
+        Parameters.timeToRunInSec = getTimeValue();
+    };
+    public void finishProgram(){
+        startButton.setEnabled(true);
+        setupButton.setEnabled(true);
+        clearButton.setEnabled(true);
+        formattedTextField1.setEnabled(true);
+        progressBar1.setValue(0);
+    };
+    public int getTimeValue(){
+        try {
+            return Integer.parseInt(formattedTextField1.getValue().toString());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
