@@ -69,13 +69,15 @@ public class LoadDriver implements Runnable {
             doPhase();
         }
         try {
-            Thread.sleep((threadName.length() - 1) * 50);
+            Thread.sleep((long) (threadName.length() - 1) * 50L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         Parameters.frame.finishProgram();
-        Parameters.frame.writeTextField("TXs: " + String.valueOf(transactionsDone) + "; TXs/s: " + String.valueOf(((float) transactionsDone
-                / (((float) Parameters.timeToRunInSec * (float) 5 / 10)))));
+        Parameters.frame.writeTextField("TXs: "
+                + transactionsDone
+                + "; TXs/s: " + ((float) transactionsDone
+                / (((float) Parameters.timeToRunInSec * (float) 5 / 10))));
         System.out.println("TXs: " + transactionsDone + "; TXs/s: "
                 + ((float) transactionsDone
                 / (((float) Parameters.timeToRunInSec * (float) 5 / 10))));

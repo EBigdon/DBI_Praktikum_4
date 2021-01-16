@@ -3,7 +3,6 @@ package gui;
 import program.LoadDriver;
 import program.Parameters;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -11,10 +10,13 @@ import java.time.format.DateTimeFormatter;
 
 public class StartButtonScript implements ActionListener {
 
+    /**
+     * Does transactions when start button is pressed.
+     * @param e the event, waits until its pressed.
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         Parameters.frame.startProgram();
-        JLabel lable = new JLabel("Programm gestartet");
         System.out.println("Load Driver started...");
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -28,7 +30,8 @@ public class StartButtonScript implements ActionListener {
                 runnableLoadDriver.start();
             }
         }
-        ProgressRunnable progressRunnable = new ProgressRunnable(Parameters.frame.progressBar1, "Progress bar Thread");
+        ProgressRunnable progressRunnable = new ProgressRunnable(
+                Parameters.frame.progressBar1, "Progress bar Thread");
         progressRunnable.start();
 
 

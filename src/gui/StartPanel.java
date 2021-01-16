@@ -2,21 +2,48 @@ package gui;
 
 import program.Parameters;
 
-import javax.swing.*;
-import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JProgressBar;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextArea;
+import javax.swing.JPanel;
 
-public class StartPanel extends JFrame{
-    public JButton startButton;
-    public JButton clearButton;
-    public JButton setupButton;
-    public JProgressBar progressBar1;
+public class StartPanel extends JFrame {
+    /**
+     * Button to start transaction.
+     */
+    private JButton startButton;
+    /**
+     * Button to clear history table.
+     */
+    private JButton clearButton;
+    /**
+     * Button to create 100-tps-database.
+     */
+    private JButton setupButton;
+    /**
+     * Progress bar to show progress.
+     */
+    JProgressBar progressBar1;
+    /**
+     * Text field to set time to run.
+     */
     private JFormattedTextField formattedTextField1;
-    private JTextArea History;
+    /**
+     * Text area.
+     */
+    private JTextArea history;
+    /**
+     * The Panel.
+     */
     private JPanel rootPanel;
 
-    public StartPanel(){
+    /**
+     * The constructor of the class.
+     */
+    public StartPanel() {
         add(rootPanel);
-
         formattedTextField1.setValue("10");
         StartButtonScript startAction = new StartButtonScript();
         startButton.addActionListener(startAction);
@@ -24,38 +51,60 @@ public class StartPanel extends JFrame{
         clearButton.addActionListener(clearAction);
         SetupButtonScript setupAction = new SetupButtonScript();
         setupButton.addActionListener(setupAction);
-
         setTitle("Server-Benchmark");
-        setSize(800,600);
+        setSize(Parameters.windowWidth, Parameters.windowHeight);
     }
-    public void startProgram(){
+
+    /**
+     * Deactivates buttons and text field.
+     */
+    public void startProgram() {
         startButton.setEnabled(false);
         clearButton.setEnabled(false);
         setupButton.setEnabled(false);
         formattedTextField1.setEnabled(false);
         Parameters.timeToRunInSec = getTimeValue();
-    };
-    public void finishProgram(){
+    }
+
+    /**
+     * Reactivates buttons and text field.
+     */
+    public void finishProgram() {
         startButton.setEnabled(true);
         setupButton.setEnabled(true);
         clearButton.setEnabled(true);
         formattedTextField1.setEnabled(true);
         progressBar1.setValue(0);
-    };
-    public int getTimeValue(){
+    }
+
+    /**
+     * gets value of text field (Time to run in seconds).
+     *
+     * @return returns value of text field
+     */
+    public int getTimeValue() {
         try {
             return Integer.parseInt(formattedTextField1.getValue().toString());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
     }
-    public void writeTextField(String Text) {
-        String current = History.getText();
-        History.setText(current + Text + "\n");
+
+    /**
+     * Writes into Textarea.
+     *
+     * @param Text text to write
+     */
+    public void writeTextField(final String Text) {
+        String current = history.getText();
+        history.setText(current + Text + "\n");
     }
-    public void clearTextField(){
-        History.setText("");
+
+    /**
+     * Clears the Textarea.
+     */
+    public void clearTextField() {
+        history.setText("");
     }
 }

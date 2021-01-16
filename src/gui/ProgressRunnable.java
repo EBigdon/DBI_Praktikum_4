@@ -2,7 +2,8 @@ package gui;
 
 import program.Parameters;
 
-import javax.swing.*;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,7 +19,7 @@ public class ProgressRunnable implements Runnable {
     /**
      * The progress bar.
      */
-    private JProgressBar it;
+    private final JProgressBar it;
     /**
      * Runnable start.
      */
@@ -34,7 +35,8 @@ public class ProgressRunnable implements Runnable {
      * @param myProgressBar Progressbar to modify
      * @param name name of the thread
      */
-    public ProgressRunnable(JProgressBar myProgressBar, final String name) {
+    public ProgressRunnable(final JProgressBar myProgressBar,
+                            final String name) {
         it = myProgressBar;
         threadName = name;
     }
