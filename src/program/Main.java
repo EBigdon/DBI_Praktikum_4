@@ -2,12 +2,13 @@ package program;
 
 import gui.StartPanel;
 
-import javax.swing.*;
+import javax.swing.WindowConstants;
+
 
 /**
 * Our Main class for the benchmark database.
 */
-@SuppressWarnings({"SpellCheckingInspection", "checkstyle:magicnumber"})
+@SuppressWarnings({"checkstyle:magicnumber"})
 public class Main {
 
     /**
@@ -15,13 +16,10 @@ public class Main {
      *
      * @param args String of supplied command-line-arguments
      */
-    public static void main(final String[] args) throws Exception {
-        /*Parameters.frame = new ButtonFrame();
-        Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Parameters.frame.setVisible(true);*/
+    public static void main(final String[] args) {
         Parameters.frame = new StartPanel();
         Parameters.frame.setVisible(true);
-        Parameters.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //Parameters.frame.add(panel);
+        Parameters.frame.setDefaultCloseOperation(
+                WindowConstants.EXIT_ON_CLOSE);
     }
 }
