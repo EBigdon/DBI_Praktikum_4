@@ -1,6 +1,5 @@
 package program;
 
-import gui.ButtonFrame;
 import gui.StartPanel;
 
 public class Parameters {
