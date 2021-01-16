@@ -1,5 +1,6 @@
 package gui;
 
+import program.Parameters;
 import program.TableManager;
 
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class SetupButtonScript implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
+        Parameters.frame.startProgram();
         System.out.println("Welcher Skalierungsfaktor soll verwendet werden?"
                 + "(0 um aktuellen Zustand beizubehalten):");
         Scanner scanner = new Scanner(System.in);
@@ -29,5 +31,6 @@ public class SetupButtonScript implements ActionListener {
         } else {
             TableManager.clearHistory();
         }
+        Parameters.frame.finishProgram();
     }
 }

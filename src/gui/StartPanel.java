@@ -12,7 +12,6 @@ public class StartPanel extends JFrame{
     public JProgressBar progressBar1;
     private JFormattedTextField formattedTextField1;
     private JTextArea History;
-    private JTextArea TMs7;
     private JPanel rootPanel;
 
     public StartPanel(){
@@ -51,5 +50,8 @@ public class StartPanel extends JFrame{
             e.printStackTrace();
         }
         return 0;
+    }
+    public void writeTextField(String Text){
+        History.setText(Text);
     }
 }
