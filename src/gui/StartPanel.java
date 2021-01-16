@@ -55,4 +55,7 @@ public class StartPanel extends JFrame{
         String current = History.getText();
         History.setText(current + Text + "\n");
     }
+    public void clearTextField(){
+        History.setText("");
+    }
 }

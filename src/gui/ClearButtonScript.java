@@ -1,5 +1,6 @@
 package gui;
 
+import program.Parameters;
 import program.TableManager;
 
 import java.awt.event.ActionEvent;
@@ -10,5 +11,6 @@ public class ClearButtonScript implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         new TableManager();
         TableManager.clearHistory();
+        Parameters.frame.clearTextField();
     }
 }
