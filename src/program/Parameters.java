@@ -55,4 +55,8 @@ public class Parameters {
      * Return value for first LoadDriver Instance.
      */
     public static long resultFive = 0;
+    /**
+     * Loading screen for setup.
+     */
+    public static LoadingScreen myLoadingScreen = null;
 }

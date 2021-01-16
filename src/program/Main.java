@@ -3,7 +3,9 @@ package program;
 import gui.StartPanel;
 
 import javax.swing.WindowConstants;
-
+import javax.swing.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
 * Our Main class for the benchmark database.
@@ -16,7 +18,7 @@ public class Main {
      *
      * @param args String of supplied command-line-arguments
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws MalformedURLException {
         Parameters.frame = new StartPanel();
         Parameters.frame.setVisible(true);
         Parameters.frame.setDefaultCloseOperation(

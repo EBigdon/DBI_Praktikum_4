@@ -33,7 +33,7 @@ public class StartPanel extends JFrame {
     /**
      * Text area.
      */
-    private JTextArea history;
+    private JTextArea History;
     /**
      * The Panel.
      */
@@ -97,14 +97,14 @@ public class StartPanel extends JFrame {
      * @param Text text to write
      */
     public void writeTextField(final String Text) {
-        String current = history.getText();
-        history.setText(current + Text + "\n");
+        String current = History.getText();
+        History.setText(current + Text + "\n");
     }
 
     /**
      * Clears the Textarea.
      */
     public void clearTextField() {
-        history.setText("");
+        History.setText("");
     }
 }

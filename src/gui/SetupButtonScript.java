@@ -1,30 +1,26 @@
 package gui;
 
+import program.LoadingScreen;
+import program.LoadingScreenRunnable;
 import program.Parameters;
 import program.TableManager;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 public class SetupButtonScript implements ActionListener {
+    /**
+     * Method that gets performed when setup button is pressed.
+     * @param e waits for the button press
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Parameters.frame.startProgram();
-        Parameters.frame.writeTextField("Füllt Datenbank mit 100-TPs.");
-        System.out.println("Füllt Datenbank mit 100-TPs.");
-        new TableManager();
-        TableManager.createTables();
-        long start = System.currentTimeMillis();
-        try {
-            TableManager.fillDatabase(100);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        long finish = System.currentTimeMillis();
-        long timeElapsed = finish - start;
-        System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
-        Parameters.frame.finishProgram();
+    public void actionPerformed(final ActionEvent e) {
+        LoadingScreenRunnable loadingScreenRunnable = new LoadingScreenRunnable("Loading");
+        loadingScreenRunnable.start();
+        Parameters.myLoadingScreen = new LoadingScreen();
     }
 }
