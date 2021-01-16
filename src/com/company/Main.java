@@ -1,7 +1,6 @@
 package com.company;
 
 import gui.ButtonFrame;
-import gui.ButtonPanel;
 import gui.StartPanel;
 
 import javax.swing.*;
@@ -23,34 +22,9 @@ public class Main {
         /*Parameters.frame = new ButtonFrame();
         Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Parameters.frame.setVisible(true);*/
-        StartPanel Startpanel = new StartPanel();
-        Startpanel.setVisible(true);
-        Startpanel.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        Parameters.frame = new StartPanel();
+        Parameters.frame.setVisible(true);
+        Parameters.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //Parameters.frame.add(panel);
-        fillDatabase();
-    }
-
-    /**
-     * Asks if we should reset the database or not.
-     *
-     * returns the expected value of 100.
-     * @throws SQLException throws SQL-Exception.
-     */
-    public static void fillDatabase() throws SQLException {
-        System.out.println("Welcher Skalierungsfaktor soll verwendet werden?"
-                + "(0 um aktuellen Zustand beizubehalten):");
-        Scanner scanner = new Scanner(System.in);
-        new TableManager();
-        int n = scanner.nextInt();
-        if (n != 0) {
-            TableManager.createTables();
-            long start = System.currentTimeMillis();
-            TableManager.fillDatabase(n);
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
-            System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
-        } else {
-            TableManager.clearHistory();
-        }
     }
 }

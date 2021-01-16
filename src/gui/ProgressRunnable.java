@@ -43,12 +43,6 @@ public class ProgressRunnable implements Runnable {
      */
     public void run() {
         waitTillLoadDriverEnd();
-        Parameters.frame.setVisible(false);
-        Parameters.frame = new ButtonFrame();
-        Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Parameters.frame.setVisible(true);
-        ButtonPanel panel = new ButtonPanel();
-        Parameters.frame.add(panel);
         t.stop();
         Thread.currentThread().interrupt();
         t = null;

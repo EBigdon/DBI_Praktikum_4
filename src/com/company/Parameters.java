@@ -1,6 +1,7 @@
 package com.company;
 
 import gui.ButtonFrame;
+import gui.StartPanel;
 
 import javax.swing.*;
 
@@ -20,7 +21,7 @@ public class Parameters {
     /**
      * Time to run in seconds for the LoadDriver.
      */
-    public static final int timeToRunInSec = 10 * 20;
+    public static final int timeToRunInSec = 10;
     /**
      * Width of window.
      */
@@ -36,7 +37,7 @@ public class Parameters {
     /**
      * The Swing gui Buttonframe instance.
      */
-    public static ButtonFrame frame = null;
+    public static StartPanel frame = null;
     /**
      * Retval for first LoadDriver Instance.
      */
