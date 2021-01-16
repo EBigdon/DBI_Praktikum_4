@@ -3,6 +3,7 @@ import com.company.LoadDriver;
 import com.company.Parameters;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -17,12 +18,15 @@ public final class StartAction implements ActionListener {
      *
      * @param event wait for button press
      */
+    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:WhitespaceAfter"})
     public void actionPerformed(final ActionEvent event) {
+        JLabel lable = new JLabel("Programm gestartet");
         Parameters.frame.setVisible(false);
         Parameters.frame = new ButtonFrame();
         Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Parameters.frame.setVisible(true);
-        ProgressBar progressBar = new ProgressBar();
+        ProgressBar progressBar = new ProgressBar(10, Parameters.windowHeight - 100,
+                Parameters.windowWidth - 20, 40);
         Parameters.frame.setContentPane(progressBar);
         System.out.println("Load Driver started...");
         LocalTime time = LocalTime.now();

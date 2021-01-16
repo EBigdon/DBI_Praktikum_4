@@ -14,7 +14,7 @@ public class ProgressBar extends JPanel {
 
     static final int MY_MAXIMUM = 100;
 
-    public ProgressBar() {
+    public ProgressBar(int x,int y, int width,int height) {
         pbar = new JProgressBar();
         pbar.setMinimum(MY_MINIMUM);
         pbar.setMaximum(MY_MAXIMUM);
@@ -24,7 +24,7 @@ public class ProgressBar extends JPanel {
         //pbar.setSize(new Dimension(Parameters.windowWidth,Parameters.windowHeight/4));
         setLayout(null);
         //pbar.setSize(Parameters.windowWidth,Parameters.windowHeight/4);
-        pbar.setBounds(10,10,Parameters.windowWidth-20,Parameters.windowHeight/4);
+        pbar.setBounds(x,y,width,height);
         add(pbar);
     }
 

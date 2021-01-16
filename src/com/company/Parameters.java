@@ -2,6 +2,8 @@ package com.company;
 
 import gui.ButtonFrame;
 
+import javax.swing.*;
+
 public class Parameters {
     /**
      * url of Database.
@@ -18,15 +20,15 @@ public class Parameters {
     /**
      * Time to run in seconds for the LoadDriver.
      */
-    public static final int timeToRunInSec = 10 * 60 / 60;
+    public static final int timeToRunInSec = 10 * 20;
     /**
      * Width of window.
      */
-    public static final  int windowWidth = 1920;
+    public static final  int windowWidth = 800;
     /**
      * Height of Window.
      */
-    public static final int windowHeight = 1080;
+    public static final int windowHeight = 400;
     /**
      * n from n-tps database.
      */

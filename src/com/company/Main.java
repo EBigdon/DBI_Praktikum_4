@@ -2,8 +2,9 @@ package com.company;
 
 import gui.ButtonFrame;
 import gui.ButtonPanel;
+import gui.StartPanel;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -19,11 +20,13 @@ public class Main {
      * @param args String of supplied command-line-arguments
      */
     public static void main(final String[] args) throws Exception {
-        Parameters.frame = new ButtonFrame();
+        /*Parameters.frame = new ButtonFrame();
         Parameters.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Parameters.frame.setVisible(true);
-        ButtonPanel panel = new ButtonPanel();
-        Parameters.frame.add(panel);
+        Parameters.frame.setVisible(true);*/
+        StartPanel Startpanel = new StartPanel();
+        Startpanel.setVisible(true);
+        Startpanel.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        //Parameters.frame.add(panel);
         fillDatabase();
     }
 

@@ -20,9 +20,10 @@ public class ButtonPanel extends JPanel {
         //setPreferredSize(new Dimension(2000, 4000));
         //startButton.setSize(Parameters.windowWidth,Parameters.windowHeight/4);
         //setLayout(new GridBagLayout());
-        setLayout(null);
-        startButton.setBounds(Parameters.windowWidth/4,50,Parameters.windowWidth/2,Parameters.windowHeight/4);
+        setLayout(new FlowLayout());
+        //startButton.setBounds(Parameters.windowWidth/4,50,Parameters.windowWidth/2,Parameters.windowHeight/4);
         startButton.setFont(startButton.getFont().deriveFont(64.0f));
+        startButton.setSize(100,80);
         //startButton.setSize(Parameters.windowWidth/2,Parameters.windowHeight/4);
         add(startButton);
 
