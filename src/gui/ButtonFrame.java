@@ -1,9 +1,8 @@
 package gui;
 
-import com.company.Parameters;
+import program.Parameters;
 
 import javax.swing.JFrame;
-import java.awt.*;
 
 public class ButtonFrame extends JFrame {
     /**

@@ -1,11 +1,8 @@
-package com.company;
+package program;
 
-import gui.ButtonFrame;
 import gui.StartPanel;
 
 import javax.swing.*;
-import java.sql.SQLException;
-import java.util.Scanner;
 
 /**
 * Our Main class for the benchmark database.

@@ -1,9 +1,7 @@
-package com.company;
+package program;
 
 import gui.ButtonFrame;
 import gui.StartPanel;
-
-import javax.swing.*;
 
 public class Parameters {
     /**
@@ -21,15 +19,15 @@ public class Parameters {
     /**
      * Time to run in seconds for the LoadDriver.
      */
-    public static final int timeToRunInSec = 10;
+    public static final int timeToRunInSec = 600;
     /**
      * Width of window.
      */
-    public static final  int windowWidth = 800;
+    public static final  int windowWidth = 1600;
     /**
      * Height of Window.
      */
-    public static final int windowHeight = 400;
+    public static final int windowHeight = 900;
     /**
      * n from n-tps database.
      */

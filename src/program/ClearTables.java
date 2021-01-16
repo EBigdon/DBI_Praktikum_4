@@ -1,5 +1,4 @@
-package com.company;
-import static com.company.TableManager.executeQuerry;
+package program;
 
 /**
  * Drops Tables and then creates them again.
@@ -10,7 +9,7 @@ public class ClearTables {
      * Clears the History table.
      */
     public static void clearHistory() {
-        executeQuerry("DROP TABLE IF EXISTS history; ");
+        TableManager.executeQuerry("DROP TABLE IF EXISTS history; ");
         createHistory();
     }
     /**
@@ -28,10 +27,10 @@ public class ClearTables {
      * drops the tables.
      */
     private static void dropTable() {
-        executeQuerry("DROP TABLE IF EXISTS history; ");
-        executeQuerry("DROP TABLE IF EXISTS accounts; ");
-        executeQuerry("DROP TABLE IF EXISTS tellers; ");
-        executeQuerry("DROP TABLE IF EXISTS branches; ");
+        TableManager.executeQuerry("DROP TABLE IF EXISTS history; ");
+        TableManager.executeQuerry("DROP TABLE IF EXISTS accounts; ");
+        TableManager.executeQuerry("DROP TABLE IF EXISTS tellers; ");
+        TableManager.executeQuerry("DROP TABLE IF EXISTS branches; ");
     }
 
     /**
@@ -45,7 +44,7 @@ public class ClearTables {
                  balance int not null,
                  address char(72) not null,
                  primary key (branchid) );""";
-        executeQuerry(query);
+        TableManager.executeQuerry(query);
     }
 
     /**
@@ -63,7 +62,7 @@ public class ClearTables {
                 foreign key (branchid) references
                 bench_database.branches(branchid)
                 );""";
-        executeQuerry(query);
+        TableManager.executeQuerry(query);
     }
 
     /**
@@ -80,7 +79,7 @@ public class ClearTables {
                  primary key (tellerid),
                  foreign key (branchid) references branches(branchid)
                 );\s""";
-        executeQuerry(query);
+        TableManager.executeQuerry(query);
     }
 
     /**
@@ -98,6 +97,6 @@ public class ClearTables {
                  foreign key (accid) references accounts(accid),
                  foreign key (tellerid) references tellers(tellerid),
                  foreign key (branchid) references branches(branchid) );\s""";
-        executeQuerry(query);
+        TableManager.executeQuerry(query);
     }
 }

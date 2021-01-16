@@ -1,10 +1,7 @@
-package com.company;
+package program;
 
-import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.Statement;
-
-import static com.company.TableManager.openSqlCon;
 
 public class TXManager {
     /**
@@ -24,7 +21,7 @@ public class TXManager {
      * Constructor of TXManager class.
      */
     public TXManager() {
-        conn = openSqlCon(Parameters.url, Parameters.username,
+        conn = TableManager.openSqlCon(Parameters.url, Parameters.username,
                 Parameters.password);
         try {
             updateStmt = conn.createStatement();
@@ -74,8 +71,10 @@ public class TXManager {
      */
     public static void sqlTransaction() {
         try {
-            String query = "START TRANSACTION;";
-            updateStmt.addBatch(query);
+            String query1 = "SET foreign_key_checks = 0;";
+            String query2 = "START TRANSACTION;";
+            updateStmt.addBatch(query1);
+            updateStmt.addBatch(query2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,8 +85,10 @@ public class TXManager {
      */
     public static void sqlRollback() {
         try {
-            String query = "ROLLBACK;";
-            updateStmt.addBatch(query);
+            String query1 = "ROLLBACK;";
+            String query2 = "SET foreign_key_checks = 1;";
+            updateStmt.addBatch(query1);
+            updateStmt.addBatch(query2);
             updateStmt.executeBatch();
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,23 +100,13 @@ public class TXManager {
      */
     public static void sqlCommit() {
         try {
-            String query = "COMMIT;";
-            updateStmt.addBatch(query);
+            String query1 = "COMMIT;";
+            String query2 = "SET foreign_key_checks = 0;";
+            updateStmt.addBatch(query1);
+            updateStmt.addBatch(query2);
             updateStmt.executeBatch();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * executes Query to database.
-     *
-     * @param query query to execute
-     * @return returns table
-     * @throws Exception throws exception when error in query
-     */
-    private static ResultSet executeQuery(final String query) throws Exception {
-        Statement st = conn.createStatement();
-        return st.executeQuery(query);
     }
 }

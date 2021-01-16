@@ -1,4 +1,4 @@
-package com.company;
+package program;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-import static com.company.ClearTables.clearTables;
+import static program.ClearTables.clearTables;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TableManager {
@@ -53,7 +53,7 @@ public class TableManager {
                     IN `telId` INT,
                     IN `newBal` INT,
                     IN `comm` CHAR(30)
-                ) COMMENT 'represents deposit transaction' 
+                ) COMMENT 'represents deposit transaction'
                 NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER
                 BEGIN
                     UPDATE accounts
@@ -142,7 +142,8 @@ public class TableManager {
                 """
                 + Parameters.n + """
                 )+1)),SUBSTRING(CONCAT(n,
-                'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNO'
+                'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFG
+                HIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNO'
                 ),1,68)
                 FROM
                 (
@@ -151,16 +152,65 @@ public class TableManager {
                 """
                 + ((currentPos - 1) * 100000 + 1) + " " + """
                 N
-                from (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) a
-                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) b
-                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) c
-                       , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) d
-                     , (select 0 as N union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) e
+                from (
+                select 0 as N union all
+                select 1 union all
+                select 2 union all
+                select 3 union all
+                select 4 union all
+                select 5 union all
+                select 6 union all
+                select 7 union all
+                select 8 union all
+                select 9) a,
+                (
+                select 0 as N union all
+                select 1 union all
+                select 2 union all
+                select 3 union all
+                select 4 union all
+                select 5 union all
+                select 6 union all
+                select 7 union all
+                select 8 union all
+                select 9) b,
+                (
+                select 0 as N union all
+                select 1 union all
+                select 2 union all
+                select 3 union all
+                select 4 union all
+                select 5 union all
+                select 6 union all
+                select 7 union all
+                select 8 union all
+                select 9) c,
+                (
+                select 0 as N union all
+                select 1 union all
+                select 2 union all
+                select 3 union all
+                select 4 union all
+                select 5 union all
+                select 6 union all
+                select 7 union all
+                select 8 union all
+                select 9) d,
+                (
+                select 0 as N union all
+                select 1 union all
+                select 2 union all
+                select 3 union all
+                select 4 union all
+                select 5 union all
+                select 6 union all
+                select 7 union all
+                select 8 union all
+                select 9) e
                  order by n
                  ) t""";
         preparedQuery(query);
     }
-
 
     /**
      * Returns Connection of Database.
@@ -188,7 +238,9 @@ public class TableManager {
      */
     public static void fillDatabase(final int n) throws SQLException {
 
-        String fillString = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL";
+        String fillString
+                = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRS"
+                + "TUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL";
         PreparedStatement branchstmt = conn.prepareStatement(
                 "INSERT INTO branches (branchid, branchname,"
                         + " balance, address) VALUES (?, ?, ?, ?)");

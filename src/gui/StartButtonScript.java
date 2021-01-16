@@ -1,7 +1,7 @@
 package gui;
 
-import com.company.LoadDriver;
-import com.company.Parameters;
+import program.LoadDriver;
+import program.Parameters;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

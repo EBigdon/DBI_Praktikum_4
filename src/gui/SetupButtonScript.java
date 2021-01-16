@@ -1,6 +1,6 @@
 package gui;
 
-import com.company.TableManager;
+import program.TableManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
