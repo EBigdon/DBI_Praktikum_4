@@ -68,6 +68,11 @@ public class LoadDriver implements Runnable {
         while (System.currentTimeMillis() < end) {
             doPhase();
         }
+        try {
+            Thread.sleep((threadName.length() - 1) * 50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Parameters.frame.finishProgram();
         Parameters.frame.writeTextField("TXs: " + String.valueOf(transactionsDone) + "; TXs/s: " + String.valueOf(((float) transactionsDone
                 / (((float) Parameters.timeToRunInSec * (float) 5 / 10)))));

@@ -73,6 +73,11 @@ public class ProgressRunnable implements Runnable {
         long totalTransactionsDone = Parameters.resultOne
                 + Parameters.resultTwo + Parameters.resultThree
                 + Parameters.resultFour + Parameters.resultFive;
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Parameters.frame.writeTextField(String.valueOf(totalTransactionsDone));
         System.out.println("Transactions done during measurement phase: "
                 + (totalTransactionsDone));
