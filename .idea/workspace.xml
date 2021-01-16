@@ -44,7 +44,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="progam.Main" />
+      <option name="MAIN_CLASS_NAME" value="program.Main" />
       <module name="DBI_Praktikum_4" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
