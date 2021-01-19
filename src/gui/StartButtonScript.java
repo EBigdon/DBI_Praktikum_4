@@ -23,7 +23,7 @@ public class StartButtonScript implements ActionListener {
         System.out.println("Start Time: " + time.format(formatter));
         time = time.plusSeconds(Parameters.timeToRunInSec);
         System.out.println("Estimated End Time: " + time.format(formatter));
-        for (int i = 1; i < 2; i++) {
+        for (int i = 1; i < 3; i++) {
             for (int j = 1; j < 6; j++) {
                 LoadDriver runnableLoadDriver = new LoadDriver(
                         "Thread." + i + "." + j);

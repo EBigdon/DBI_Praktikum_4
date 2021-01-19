@@ -29,7 +29,7 @@ public class LoadingScreen {
                     ex.printStackTrace();
                 }
 
-                loadingScreenFrame = new JFrame("Waiting on Upload to finish");
+                loadingScreenFrame = new JFrame(" ");
                 loadingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 loadingScreenFrame.add(new TestPane());
                 loadingScreenFrame.pack();

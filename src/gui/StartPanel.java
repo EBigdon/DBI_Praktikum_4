@@ -8,6 +8,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
+import java.awt.*;
 
 public class StartPanel extends JFrame {
     /**
@@ -77,6 +78,14 @@ public class StartPanel extends JFrame {
         progressBar1.setValue(0);
     }
 
+    /**
+     * gets value of text field (Time to run in seconds).
+     *
+     * @return returns value of text field
+     */
+    public void fixTextField() {
+        formattedTextField1.setBackground(Color.white);
+    }
     /**
      * gets value of text field (Time to run in seconds).
      *

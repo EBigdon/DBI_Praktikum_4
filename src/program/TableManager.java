@@ -14,7 +14,7 @@ public class TableManager {
     /**
      * Connection.
      */
-    private static Connection conn;
+    public static Connection conn;
 
     /**
      * Constructor of Table Manager.

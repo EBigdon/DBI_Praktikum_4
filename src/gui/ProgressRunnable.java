@@ -80,7 +80,9 @@ public class ProgressRunnable implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Parameters.frame.writeTextField(String.valueOf(totalTransactionsDone));
+        Parameters.frame.writeTextField(totalTransactionsDone + " Transactions.\n" + ((float) totalTransactionsDone
+                / ((float) Parameters.timeToRunInSec
+                * (float) 5 / 10)) + " Transactions per second");
         System.out.println("Transactions done during measurement phase: "
                 + (totalTransactionsDone));
         System.out.println("Transactions per Seconds: "

@@ -42,14 +42,17 @@ public class LoadingScreenRunnable implements Runnable{
         TableManager.createTables();
         long start = System.currentTimeMillis();
         try {
-            TableManager.fillDatabase(1);
+            TableManager.fillDatabase(100);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("Laufzeit in Millisekunden: " + timeElapsed);
+        Parameters.frame.writeTextField("Datenbank vollständig gefüllt in " + timeElapsed + " Sekunden.");
+        System.out.println("Datenbank vollständig gefüllt.");
         Parameters.frame.finishProgram();
+        Parameters.frame.fixTextField();
         Parameters.myLoadingScreen.close();
     }
 }
